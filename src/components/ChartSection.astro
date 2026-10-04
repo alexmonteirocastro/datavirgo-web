@@ -1,0 +1,11 @@
+---
+// Home-page chart-tool section. Rendered only while features.chartTool is on (see index.astro).
+import { t } from "../i18n";
+import { href } from "../lib/href";
+---
+
+<section data-feature="chartTool">
+  <h2>{t("chart.title")}</h2>
+  <p>{t("chart.stub")}</p>
+  <a href={href("chart")}>{t("nav.chart")}</a>
+</section>

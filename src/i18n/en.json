@@ -11,6 +11,11 @@
     "approach": "Approach",
     "consultations": "Consultations",
     "testimonials": "Testimonials",
-    "blog": "Blog"
+    "blog": "Blog",
+    "chart": "Chart"
+  },
+  "chart": {
+    "title": "Chart",
+    "stub": "Placeholder for the chart tool."
   }
 }

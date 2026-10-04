@@ -8,6 +8,7 @@ export const routes = {
   consultations: { en: "consultations" },
   testimonials: { en: "testimonials" },
   blog: { en: "blog" },
+  chart: { en: "chart" },
   privacy: { en: "privacy" },
 } as const satisfies Record<string, Record<string, string>>;
 

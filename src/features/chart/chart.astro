@@ -1,0 +1,17 @@
+---
+// The /chart page. It lives outside src/pages/ and is injected by astro.config.mjs
+// only while features.chartTool is on. Wrapped in the base layout once that exists.
+import { t } from "../../i18n";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{t("chart.title")}</title>
+  </head>
+  <body>
+    <h1>{t("chart.title")}</h1>
+    <p>{t("chart.stub")}</p>
+  </body>
+</html>

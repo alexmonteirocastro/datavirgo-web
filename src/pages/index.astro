@@ -1,5 +1,7 @@
 ---
 // Scaffold placeholder. Replaced by the base layout (task 6) and the stub routes (task 8).
+import ChartSection from "../components/ChartSection.astro";
+import { features } from "../config/features";
 ---
 
 <html lang="en">
@@ -8,5 +10,5 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>DataVirgo</title>
   </head>
-  <body></body>
+  <body>{features.chartTool && <ChartSection />}</body>
 </html>

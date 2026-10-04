@@ -15,6 +15,7 @@ export const navItems: readonly NavItem[] = [
   { route: "consultations", label: "nav.consultations" },
   { route: "testimonials", label: "nav.testimonials" },
   { route: "blog", label: "nav.blog" },
+  { route: "chart", label: "nav.chart", requires: "chartTool" },
 ];
 
 /** The items to render: a gated item is filtered out at build time while its flag is off. */
