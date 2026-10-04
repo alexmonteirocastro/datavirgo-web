@@ -1,10 +1,11 @@
 <!doctype html>
 <!-- Standalone fixture for DAV-8: deliberately not using tokens.css, so it opens directly from disk. Do not copy these colours or fonts into site code. -->
 <html lang="en">
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Glyph rendering test</title>
-  <style>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Glyph rendering test</title>
+    <style>
     body {
       font: 14px system-ui;
       margin: 8px;
@@ -32,8 +33,10 @@
     .svg .c {
       line-height: 0;
     }
-  </style>
-  <h1 style="font-size: 15px">Glyph test</h1>
+    </style>
+  </head>
+  <body>
+    <h1 style="font-size: 15px">Glyph test</h1>
   <p id="ua" style="font-size: 10px"></p>
   <script>
     document.getElementById("ua").textContent = navigator.userAgent;
@@ -970,4 +973,5 @@
       </span>
     </div>
   </div>
+  </body>
 </html>
