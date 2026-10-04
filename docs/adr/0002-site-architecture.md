@@ -1,6 +1,6 @@
 # ADR-0002: Site architecture
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-10-04
 - Ticket: [DAV-10](https://linear.app/alex-projects/issue/DAV-10)
 - Unblocks: [DAV-11](https://linear.app/alex-projects/issue/DAV-11) (scaffold), [DAV-14](https://linear.app/alex-projects/issue/DAV-14) (contact form)
@@ -37,6 +37,7 @@ Colours, type and spacing are in [ADR-0001](0001-design-tokens.md). The chart en
 ### Blog: Substack stays canonical
 
 - At build time, fetch the publication RSS feed and render an index: title, date, excerpt, cover image, each linking out to Substack. Posts are not copied or re-hosted. Cover images are hotlinked from Substack's CDN, not downloaded.
+- The feed URL is `https://baltiskaskronikis.substack.com/feed`, in one config value. `substack.com/@datavirgo` is a profile, not the publication. [DAV-21](https://linear.app/alex-projects/issue/DAV-21) renames the subdomain and adds a `blog.` custom domain, which changes this URL once.
 - The feed carries only recent posts (about 20) and truncates paywalled posts. That is enough for an index.
 - **Daily rebuild** so new posts appear without a push: a Cloudflare Cron Trigger calls the Pages deploy hook. The hook URL is a secret and lives in that Worker's secrets, not in this repo. (Alternative in the next section.)
 - A "Subscribe on Substack" link replaces any newsletter of our own.
@@ -59,10 +60,6 @@ Colours, type and spacing are in [ADR-0001](0001-design-tokens.md). The chart en
 ### Analytics
 
 - Cloudflare Web Analytics, the cookieless beacon listed under shape and hosting. No other tracker without a new decision.
-
-### Open question: the Substack feed URL
-
-`substack.com/@datavirgo` is a **profile**, not a publication. The feed is `<publication>.substack.com/feed` or `<custom-domain>/feed`. Unconfirmed. Owner: Alexandre. [DAV-21](https://linear.app/alex-projects/issue/DAV-21) says the publication currently lives at `baltiskaskronikis.substack.com`, which would make the feed `https://baltiskaskronikis.substack.com/feed`. That host is not confirmed here. The URL goes in one config value, so it can be changed without touching code. [DAV-13](https://linear.app/alex-projects/issue/DAV-13) has "confirm the publication feed URL" as its first step. [DAV-21](https://linear.app/alex-projects/issue/DAV-21) then renames the subdomain and adds a `blog.` custom domain, which changes the feed URL once. Update this section, and set the status to accepted, once the URL is confirmed.
 
 ## Consequences
 
