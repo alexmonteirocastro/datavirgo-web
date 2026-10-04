@@ -13,11 +13,14 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test:literals": "node scripts/test-no-raw-text.mjs"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "@eslint/js": "^10.0.1",
+    "@typescript-eslint/parser": "^8.71.0",
+    "astro-eslint-parser": "^3.2.0",
     "eslint": "^10.11.0",
     "husky": "^9.1.7",
     "lint-staged": "^17.6.0",

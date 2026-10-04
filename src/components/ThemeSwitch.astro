@@ -9,6 +9,10 @@ const { locale } = Astro.props;
 ---
 
 <!-- Behaviour lives in ThemeScript.astro. aria-checked is corrected there once the page is parsed. -->
+<!-- Deliberate exception to the glyph rule: the sun here is a rays-style icon, following the
+     sketches (Alexandre, accepted). It is not src/assets/glyphs/sun.svg, which is the
+     astrological Sun. The moon matches moon.svg. -->
+
 <button
   type="button"
   class="theme-switch"
