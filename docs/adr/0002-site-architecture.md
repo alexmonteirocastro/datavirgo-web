@@ -41,7 +41,7 @@ Colours, type and spacing are in [ADR-0001](0001-design-tokens.md). The chart en
 - The feed carries only recent posts (about 20) and truncates paywalled posts. That is enough for an index.
 - **Daily rebuild** so new posts appear without a push: a Cloudflare Cron Trigger calls the Pages deploy hook. The hook URL is a secret and lives in that Worker's secrets, not in this repo. (Alternative in the next section.)
 - A "Subscribe on Substack" link replaces any newsletter of our own.
-- **Circuit breaker:** if the feed cannot be confirmed or parsed, the blog ships as a static "Read my writing on Substack" card. A failed feed fetch at build time must not fail the build or empty the page; it falls back to that card.
+- **Outage fallback:** if the feed cannot be fetched or parsed, the build still succeeds and the blog shows a static "Read my writing on Substack" card. No saved snapshot and no empty page. The same card is the circuit breaker if the feed is still unusable when the blog ships. [DAV-13](https://linear.app/alex-projects/issue/DAV-13) follows this.
 
 ### Contact form
 
@@ -54,8 +54,9 @@ Colours, type and spacing are in [ADR-0001](0001-design-tokens.md). The chart en
 ### Testimonials
 
 - A content collection with the fields: quote, name or initials, context (for example "natal consultation, 2025"), `consent: boolean` and `placeholder: boolean`.
-- **The guard stays off until the placeholders are replaced.** One config value, `features.testimonialsGuard`, starts `false`. [DAV-12](https://linear.app/alex-projects/issue/DAV-12) puts placeholder entries on `main`, and both [DAV-15](https://linear.app/alex-projects/issue/DAV-15) and the daily rebuild need a `main` deploy to succeed before consented quotes exist. While the flag is `false`, those deploys succeed and placeholders stay visibly marked.
-- **The flag is turned on in the change that replaces the placeholders with consented quotes.** From then on, any entry with `placeholder: true` or `consent: false` fails the build in two places. CI fails the pull request into `main`, so the entry is caught before merge. The Cloudflare Pages production deploy is the backstop: it is the build where `CF_PAGES` is `1` and `CF_PAGES_BRANCH` is `main` ([Pages build configuration](https://developers.cloudflare.com/pages/configuration/build-configuration/)). `pnpm dev`, a local `astro build`, and preview deployments may still show placeholders, visibly marked, and do not fail. Vite's `import.meta.env.PROD` is not the signal: every `astro build` sets it, including previews.
+- **The guard stays off until the domain goes live.** One config value, `features.testimonialsGuard`, starts `false`. [DAV-11](https://linear.app/alex-projects/issue/DAV-11) adds it beside `features.chartTool`. [DAV-12](https://linear.app/alex-projects/issue/DAV-12) puts placeholder entries on `main`, and the Pages project and the daily rebuild need a `main` deploy to succeed before consented quotes exist. While the flag is `false`, those deploys succeed and placeholders stay visibly marked.
+- **This departs from [DAV-10](https://linear.app/alex-projects/issue/DAV-10) and the pitch**, which say the production build fails on a placeholder or unconsented entry with no flag. The flag exists so those earlier deploys are not blocked. The cost is that a forgotten flag would let placeholders reach the public site, which is the accident the guard exists to stop.
+- **[DAV-15](https://linear.app/alex-projects/issue/DAV-15) flips the flag.** It is a launch-checklist item on that ticket, and `features.testimonialsGuard` must be `true` before the custom domain goes live. From then on, any entry with `placeholder: true` or `consent: false` fails the build in two places. CI fails the pull request into `main`, so the entry is caught before merge. The Cloudflare Pages production deploy is the backstop: it is the build where `CF_PAGES` is `1` and `CF_PAGES_BRANCH` is `main` ([Pages build configuration](https://developers.cloudflare.com/pages/configuration/build-configuration/)). If placeholders remain, that build fails and the domain stays off. `pnpm dev`, a local `astro build`, and preview deployments may still show placeholders, visibly marked, and do not fail. Vite's `import.meta.env.PROD` is not the signal: every `astro build` sets it, including previews.
 
 ### Analytics
 
@@ -67,7 +68,7 @@ Colours, type and spacing are in [ADR-0001](0001-design-tokens.md). The chart en
 - Adding Portuguese is a new `pt.json`, a new content folder and route-map entries, not a restructure. The cost is paying the `t()` and route-map discipline from the first component.
 - New blog posts can lag by up to a day (the next rebuild), and the index shows only recent posts. Acceptable for an index that links out.
 - Substack is a dependency for the blog. If it changes its feed, the fallback card keeps the page alive.
-- The testimonials guard does not block deploys while `features.testimonialsGuard` is off. After it is on, a placeholder or unconsented entry fails the pull request and the production deploy.
+- The testimonials guard does not block deploys while `features.testimonialsGuard` is off. [DAV-15](https://linear.app/alex-projects/issue/DAV-15) must turn it on before the custom domain goes live. After that, a placeholder or unconsented entry fails the pull request and the production deploy, so the domain cannot go live with one.
 - No persistence means a lost email is lost. The Worker should return an error the visitor can see so they can retry or write directly.
 
 ## Alternatives
