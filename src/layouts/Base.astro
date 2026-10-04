@@ -2,6 +2,7 @@
 import "../styles/tokens.css";
 import "../styles/fonts.css";
 import "../styles/global.css";
+import ThemeScript from "../components/ThemeScript.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import { defaultLocale, t } from "../i18n";
@@ -37,6 +38,7 @@ const documentTitle =
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <ThemeScript />
     <title>{documentTitle}</title>
     {alternates.map((alt) => (
       <link rel="alternate" hreflang={alt.locale} href={alt.url} />

@@ -1,4 +1,5 @@
 ---
+import ThemeSwitch from "./ThemeSwitch.astro";
 import { visibleNavItems } from "../config/nav";
 import { t } from "../i18n";
 import type { RouteKey } from "../i18n/routes";
@@ -34,6 +35,7 @@ const items = visibleNavItems();
         ))}
       </ul>
     </nav>
+    <ThemeSwitch locale={locale} />
   </div>
 </header>
 

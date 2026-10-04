@@ -25,5 +25,8 @@
     "substack": "Substack",
     "privacy": "Privacy",
     "source": "Source code (AGPL)"
+  },
+  "theme": {
+    "label": "Dark theme"
   }
 }

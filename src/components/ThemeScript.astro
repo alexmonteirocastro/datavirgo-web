@@ -1,0 +1,57 @@
+---
+// The site's only client JS (ADR-0001, ADR-0002). It is inline and synchronous in <head> so the
+// saved theme is on <html> before first paint: no flash. With no saved choice it sets nothing,
+// and the prefers-color-scheme rule in tokens.css decides. One delegated listener handles the
+// switch, because the button does not exist yet while <head> is parsed. No other script is added.
+---
+
+<script is:inline>
+  (function () {
+    var KEY = "theme";
+    var root = document.documentElement;
+
+    function read() {
+      try {
+        return localStorage.getItem(KEY);
+      } catch (e) {
+        return null;
+      }
+    }
+    function write(value) {
+      try {
+        localStorage.setItem(KEY, value);
+      } catch (e) {
+        /* storage blocked: the choice applies for this page view only */
+      }
+    }
+    function current() {
+      var set = root.getAttribute("data-theme");
+      if (set === "dark" || set === "light") return set;
+      return window.matchMedia("(prefers-color-scheme: light)").matches
+        ? "light"
+        : "dark";
+    }
+    function sync() {
+      var buttons = document.querySelectorAll("[data-theme-toggle]");
+      for (var i = 0; i < buttons.length; i++) {
+        buttons[i].setAttribute("aria-checked", String(current() === "dark"));
+      }
+    }
+
+    var saved = read();
+    if (saved === "dark" || saved === "light") {
+      root.setAttribute("data-theme", saved);
+    }
+
+    document.addEventListener("click", function (event) {
+      var button =
+        event.target.closest && event.target.closest("[data-theme-toggle]");
+      if (!button) return;
+      var next = current() === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      write(next);
+      sync();
+    });
+    document.addEventListener("DOMContentLoaded", sync);
+  })();
+</script>
