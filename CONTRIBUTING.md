@@ -80,6 +80,8 @@ pre-commit hook runs both on staged files.
 - `pnpm format:check` — fail if formatting is off (CI always runs this)
 - `pnpm check` and `pnpm build` — no-ops until the Astro app lands in DAV-11
 
+CI always runs `pnpm format:check` and the markdown link check. It skips `pnpm lint`, `pnpm check`, and `pnpm build` when the diff is only markdown, files under `docs/`, `LICENSE`, or the pull request template.
+
 ## Quality bar
 
 - Both themes (dark and light) and mobile width checked for visual changes.
