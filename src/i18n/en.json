@@ -1,0 +1,16 @@
+{
+  "site": {
+    "name": "DataVirgo"
+  },
+  "a11y": {
+    "skipToContent": "Skip to content"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "approach": "Approach",
+    "consultations": "Consultations",
+    "testimonials": "Testimonials",
+    "blog": "Blog"
+  }
+}
