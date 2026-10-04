@@ -91,7 +91,7 @@ Accepted risks:
 
 ### Glyphs (answers [DAV-8](https://linear.app/alex-projects/issue/DAV-8))
 
-The site uses the **DataVirgo vector glyph set**, not a symbol font: 29 SVGs in [`src/assets/glyphs/`](../../src/assets/glyphs/) (11 bodies including the node, 12 signs, 5 aspects, ℞). 24 × 24 grid, stroke only, `currentColor`, stroke width `--chart-glyph-stroke` (1.6). Inlined, so they take the theme colour.
+The site uses the **DataVirgo vector glyph set**, not a symbol font: 29 SVGs in [`src/assets/glyphs/`](../../src/assets/glyphs/) (11 bodies including the node, 12 signs, 5 aspects, ℞). 24 × 24 grid, stroke only, `currentColor`, stroke width `--chart-glyph-stroke` (1.6). Inlined, so they take the theme colour. The rendering tests behind this choice are in [finding 0002](../findings/0002-glyph-rendering.md).
 
 ### Brand marks
 

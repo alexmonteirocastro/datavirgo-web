@@ -1,6 +1,6 @@
 # Finding 0002: astrological glyph rendering
 
-Ticket: [DAV-8](https://linear.app/alex-projects/issue/DAV-8). Date: 2026-10-04. Status: Windows not tested yet.
+Ticket: [DAV-8](https://linear.app/alex-projects/issue/DAV-8). Date: 2026-10-04. Status: Windows not tested yet, tracked in [DAV-27](https://linear.app/alex-projects/issue/DAV-27).
 
 ## Question
 
@@ -15,7 +15,7 @@ One static test page showed the 12 signs and the planets and node as:
 3. Unicode followed by U+FE0F (emoji presentation),
 4. the DataVirgo SVG set ([`src/assets/glyphs/`](../../src/assets/glyphs/)), inlined, `currentColor`.
 
-Rows 1 to 3 were also shown at 16px for the signs, and the SVGs at 24px and 16px (planets and ℞ included). No symbol font was loaded, so rows 1 to 3 use whatever the platform provides.
+Rows 1 and 2 were also shown at 16px for the signs, and the SVGs at 24px and 16px (planets and ℞ included). No symbol font was loaded, so rows 1 to 3 use whatever the platform provides.
 
 ## Results
 
@@ -32,7 +32,7 @@ Observations:
 
 - The problem is confirmed. Without a selector, all twelve signs render as emoji on all three platforms tested.
 - U+FE0E worked for the signs on all three platforms, but the glyph shapes come from each platform's system font, so they differ between platforms.
-- On Android, ♀ and ♂ rendered as coloured emoji when followed by U+FE0F. The planets are not immune to emoji presentation.
+- The planet and node characters rendered as text by default on all three platforms. Only an explicit U+FE0F produced emoji for them, and only on Android (♀ and ♂). The site would never write U+FE0F, so this is a note, not a risk.
 - The SVG set rendered the same on every platform, took the page's text colour, and stayed legible at 16px.
 - The Moon and Capricorn, flagged for review in the glyph-set document, were legible at 16px in all three screenshots. This was judged from simulator screenshots, not real hardware.
 
@@ -52,10 +52,10 @@ The SVG set was drawn for the DataVirgo mockups, so it carries no third-party li
 Use the DataVirgo SVG set everywhere, as ADR-0001 already decides. The tests support that decision and do not contradict it, so no new ADR is needed.
 
 - **Wheel:** inline SVG, as planned for [DAV-16](https://linear.app/alex-projects/issue/DAV-16).
-- **Inline text:** use the same SVGs through a small `<Glyph>` component, sized in `em` and aligned to the baseline. Do not put Unicode astrology characters in page text, because they render as emoji by default and U+FE0E only fixes that where the platform font cooperates.
+- **Inline text:** use the same SVGs through a small `<Glyph>` component, sized in `em` and aligned to the baseline. Do not put Unicode astrology characters in page text, because the signs render as emoji by default, and the text glyphs that U+FE0E gives differ in shape from platform to platform. U+FE0E worked on every platform tested, but whether it holds on Windows and older Android versions is unverified.
 - **Accessibility:** give each meaningful glyph an accessible name, and hide it from assistive technology where a text label sits next to it.
 
 ## Follow-ups
 
-- Run the test page on Windows (Chrome, Edge, Firefox) and fill in the last row.
+- Run the test page on Windows (Chrome, Edge, Firefox) and fill in the last row ([DAV-27](https://linear.app/alex-projects/issue/DAV-27)).
 - Decide whether to keep the hand-drawn paths or commission a refined set later.

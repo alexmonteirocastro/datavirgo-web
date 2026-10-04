@@ -18,3 +18,5 @@ Check every PR against these.
 ## Lessons learned
 
 <!-- One imperative bullet per recurring mistake. -->
+
+- In findings docs, state only what the evidence shows. Mark inferences as unverified, and link follow-up tickets created after the doc was written.
