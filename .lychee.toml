@@ -1,0 +1,7 @@
+exclude_path = ["node_modules", "\\.husky"]
+
+exclude = [
+  '^https://claude\.ai(/|$)',
+  '^https://linear\.app(/|$)',
+  '^https://([a-z0-9-]+\.)?notion\.(so|com)(/|$)',
+]

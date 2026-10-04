@@ -1,0 +1,35 @@
+---
+description: Branch, commit and PR naming for DataVirgo (Linear team DAV). Apply whenever creating a branch, writing a commit message or opening a pull request.
+alwaysApply: true
+---
+
+# Branch, commit and PR naming
+
+Full convention: `CONTRIBUTING.md` → Branching / Commit messages / Pull requests.
+
+## Branch
+
+`<type>/DAV-<NNN>-<short-slug>`
+
+- type ∈ `feat`, `fix`, `docs`, `test`, `ci`, `chore`, `refactor`, `spike`
+- `DAV-NNN` is the Linear ticket, uppercase, exactly one ticket per branch
+- slug: 3–6 kebab-case words taken from the ticket title
+- lowercase and hyphens except the ticket ID; no underscores or spaces
+- The type follows the ticket's nature (an ADR ticket is always `docs/`)
+- Never use Linear's suggested `alexandre-castro/dav-…` name
+- If no ticket ID is known, ask for it before creating a branch
+
+Examples: `feat/DAV-5-fastapi-chart-service`, `docs/DAV-1-adr-0001-c-engine-agpl`, `ci/DAV-6-docker-render-ci`, `spike/DAV-3-golden-chart-fixtures`, `chore/DAV-19-retire-streamlit`
+
+## Commit
+
+`<type>(DAV-<NNN>): <imperative summary, lowercase, no full stop>`
+
+- Same type list; a review fix on a feat branch may be `fix(DAV-NNN): …`
+- Say what changed in plain words
+- Breaking chart-API change: `<type>(DAV-NNN)!: …` with an explanation in the body
+
+## Pull request
+
+- Title in the same form as the main commit
+- Body: what and why, how it was tested, links to the pitch/ADR, and a final line `Closes DAV-NNN`

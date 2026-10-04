@@ -1,0 +1,101 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      code: ${{ steps.filter.outputs.code }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dorny/paths-filter@v4
+        id: filter
+        with:
+          predicate-quantifier: every
+          filters: |
+            code:
+              - '**'
+              - '!**/*.md'
+              - '!docs/**'
+              - '!LICENSE'
+              - '!.github/pull_request_template.md'
+
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm format:check
+
+  lychee:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: lycheeverse/lychee-action@v2.9.0
+        with:
+          args: --config .lychee.toml --verbose --no-progress '**/*.md'
+          fail: true
+
+  lint:
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+
+  check-build:
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check
+      - run: pnpm build
+
+  ci:
+    if: always()
+    needs: [changes, format, lychee, lint, check-build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require format, Lychee, and any lint or build that ran
+        env:
+          CHANGES_RESULT: ${{ needs.changes.result }}
+          FORMAT_RESULT: ${{ needs.format.result }}
+          LYCHEE_RESULT: ${{ needs.lychee.result }}
+          LINT_RESULT: ${{ needs.lint.result }}
+          CHECK_RESULT: ${{ needs.check-build.result }}
+        run: |
+          set -eu
+          fail=0
+          [ "$CHANGES_RESULT" = "success" ] || fail=1
+          [ "$FORMAT_RESULT" = "success" ] || fail=1
+          [ "$LYCHEE_RESULT" = "success" ] || fail=1
+          case "$LINT_RESULT" in success|skipped) ;; *) fail=1 ;; esac
+          case "$CHECK_RESULT" in success|skipped) ;; *) fail=1 ;; esac
+          echo "changes=$CHANGES_RESULT format=$FORMAT_RESULT lychee=$LYCHEE_RESULT lint=$LINT_RESULT check=$CHECK_RESULT"
+          exit "$fail"
