@@ -8,7 +8,7 @@ The Unicode sign characters (♈–♓) render as coloured emoji on iOS and some
 
 ## Method
 
-One static test page showed the 12 signs and the planets and node as:
+One static test page ([`glyph-test.html`](0002-glyph-rendering/glyph-test.html), open it directly in a browser) showed the 12 signs and the planets and node as:
 
 1. plain Unicode,
 2. Unicode followed by U+FE0E (text presentation),
@@ -32,16 +32,16 @@ Observations:
 
 - The problem is confirmed. Without a selector, all twelve signs render as emoji on all three platforms tested.
 - U+FE0E worked for the signs on all three platforms, but the glyph shapes come from each platform's system font, so they differ between platforms.
-- The planet and node characters rendered as text by default on all three platforms. Only an explicit U+FE0F produced emoji for them, and only on Android (♀ and ♂). The site would never write U+FE0F, so this is a note, not a risk.
+- The planet and node characters rendered as text by default on all three platforms. Only an explicit U+FE0F produced emoji for them, and only on Android (♀ and ♂). There is no reason for the site to write U+FE0F, so this is a note, not a risk.
 - The SVG set rendered the same on every platform, took the page's text colour, and stayed legible at 16px.
 - The Moon and Capricorn, flagged for review in the glyph-set document, were legible at 16px in all three screenshots. This was judged from simulator screenshots, not real hardware.
 
 ## Limits
 
-- Simulators and an emulator, not physical devices. Older Android versions, which are the likeliest to differ, were not covered.
+- Simulators and an emulator, not physical devices. Older Android versions were not covered, and they may differ.
 - macOS was tested in headless Chrome only, not Safari.
 - No symbol font (for example Noto Sans Symbols 2) was tested, so the ticket's "U+FE0E plus a self-hosted symbol font" option is not measured. It would also add a font file to the build, which the SVG set avoids.
-- Windows is untested. Segoe UI Symbol is expected to supply the text glyphs, but whether it covers every planet and the node is unverified. This does not change the recommendation, because the SVG set does not use fonts.
+- Windows is untested. Segoe UI Symbol is expected to supply the text glyphs (from general knowledge, not tested), but whether it covers every planet and the node is unverified. This does not change the recommendation, because the SVG set does not use fonts.
 
 ## Licensing
 
