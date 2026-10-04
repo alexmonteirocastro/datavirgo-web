@@ -1,11 +1,12 @@
 ---
-// Scaffold placeholder. Replaced by the stub routes (task 8).
 import Base from "../layouts/Base.astro";
 import ChartSection from "../components/ChartSection.astro";
 import { features } from "../config/features";
 import { t } from "../i18n";
 ---
 
-<Base title={t("site.name")} route="home">
+<Base title={t("pages.home.title")} route="home">
+  <h1>{t("pages.home.title")}</h1>
+  <p>{t("pages.placeholder")}</p>
   {features.chartTool && <ChartSection />}
 </Base>

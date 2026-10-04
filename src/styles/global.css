@@ -40,3 +40,19 @@ a {
   margin-inline: auto;
   padding-inline: var(--gutter);
 }
+
+h1 {
+  font-size: var(--font-size-3xl);
+}
+
+h2 {
+  font-size: var(--font-size-xl);
+}
+
+p {
+  max-width: var(--measure);
+}
+
+main > .container {
+  padding-block: var(--space-9);
+}
