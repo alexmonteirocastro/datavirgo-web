@@ -6,7 +6,8 @@
   },
   "a11y": {
     "skipToContent": "Skip to content",
-    "mainNav": "Main navigation"
+    "mainNav": "Main navigation",
+    "menu": "Menu"
   },
   "nav": {
     "home": "Home",
