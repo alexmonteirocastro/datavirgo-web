@@ -1,0 +1,3 @@
+# esbuild's postinstall is denied. The platform package supplies the binary.
+allowBuilds:
+  esbuild: false
