@@ -53,7 +53,8 @@ Colours, type and spacing are in [ADR-0001](0001-design-tokens.md). The chart en
 ### Testimonials
 
 - A content collection with the fields: quote, name or initials, context (for example "natal consultation, 2025"), `consent: boolean` and `placeholder: boolean`.
-- **The build fails only on the Cloudflare Pages production deploy, and only if any entry has `placeholder: true` or `consent: false`.** That deploy is the one where `CF_PAGES` is `1` and `CF_PAGES_BRANCH` is `main`, the production branch ([Pages build configuration](https://developers.cloudflare.com/pages/configuration/build-configuration/)). Invented or unapproved testimonials cannot go live by accident. `pnpm dev`, a local `astro build`, and preview deployments may show placeholders, visibly marked. Vite's `import.meta.env.PROD` is not the signal: every `astro build` sets it, including previews.
+- **The guard stays off until the placeholders are replaced.** One config value, `features.testimonialsGuard`, starts `false`. [DAV-12](https://linear.app/alex-projects/issue/DAV-12) puts placeholder entries on `main`, and both [DAV-15](https://linear.app/alex-projects/issue/DAV-15) and the daily rebuild need a `main` deploy to succeed before consented quotes exist. While the flag is `false`, those deploys succeed and placeholders stay visibly marked.
+- **The flag is turned on in the change that replaces the placeholders with consented quotes.** From then on, any entry with `placeholder: true` or `consent: false` fails the build in two places. CI fails the pull request into `main`, so the entry is caught before merge. The Cloudflare Pages production deploy is the backstop: it is the build where `CF_PAGES` is `1` and `CF_PAGES_BRANCH` is `main` ([Pages build configuration](https://developers.cloudflare.com/pages/configuration/build-configuration/)). `pnpm dev`, a local `astro build`, and preview deployments may still show placeholders, visibly marked, and do not fail. Vite's `import.meta.env.PROD` is not the signal: every `astro build` sets it, including previews.
 
 ### Analytics
 
@@ -61,7 +62,7 @@ Colours, type and spacing are in [ADR-0001](0001-design-tokens.md). The chart en
 
 ### Open question: the Substack feed URL
 
-`substack.com/@datavirgo` is a **profile**, not a publication. The feed is `<publication>.substack.com/feed` or `<custom-domain>/feed`. Unconfirmed. Owner: Alexandre. The URL goes in one config value, so it can be changed without touching code. [DAV-13](https://linear.app/alex-projects/issue/DAV-13) confirms it before the blog index is built. [DAV-21](https://linear.app/alex-projects/issue/DAV-21) renames the Substack subdomain and adds a `blog.` custom domain, which will change the feed URL once. Update this section, and set the status to accepted, once it is confirmed.
+`substack.com/@datavirgo` is a **profile**, not a publication. The feed is `<publication>.substack.com/feed` or `<custom-domain>/feed`. Unconfirmed. Owner: Alexandre. [DAV-21](https://linear.app/alex-projects/issue/DAV-21) says the publication currently lives at `baltiskaskronikis.substack.com`, which would make the feed `https://baltiskaskronikis.substack.com/feed`. That host is not confirmed here. The URL goes in one config value, so it can be changed without touching code. [DAV-13](https://linear.app/alex-projects/issue/DAV-13) has "confirm the publication feed URL" as its first step. [DAV-21](https://linear.app/alex-projects/issue/DAV-21) then renames the subdomain and adds a `blog.` custom domain, which changes the feed URL once. Update this section, and set the status to accepted, once the URL is confirmed.
 
 ## Consequences
 
@@ -69,7 +70,7 @@ Colours, type and spacing are in [ADR-0001](0001-design-tokens.md). The chart en
 - Adding Portuguese is a new `pt.json`, a new content folder and route-map entries, not a restructure. The cost is paying the `t()` and route-map discipline from the first component.
 - New blog posts can lag by up to a day (the next rebuild), and the index shows only recent posts. Acceptable for an index that links out.
 - Substack is a dependency for the blog. If it changes its feed, the fallback card keeps the page alive.
-- The testimonials guard turns an editorial risk into a build failure, which means a launch can be blocked until real, consented quotes exist.
+- The testimonials guard does not block deploys while `features.testimonialsGuard` is off. After it is on, a placeholder or unconsented entry fails the pull request and the production deploy.
 - No persistence means a lost email is lost. The Worker should return an error the visitor can see so they can retry or write directly.
 
 ## Alternatives
@@ -82,3 +83,4 @@ Colours, type and spacing are in [ADR-0001](0001-design-tokens.md). The chart en
 - **Contact form storing messages** (D1, KV): rejected. It makes the site a processor of birth data and adds a retention policy to write.
 - **Mailto link or a third-party form service**: rejected. A mailto has no spam protection and a third-party service is an unvetted processor of personal data.
 - **Google Analytics or similar**: rejected. It needs a cookie banner and sends visitor data to a third party.
+- **Failing every `main` deploy that still contains a placeholder:** rejected. [DAV-12](https://linear.app/alex-projects/issue/DAV-12) lands placeholders on `main`, and both [DAV-15](https://linear.app/alex-projects/issue/DAV-15) and the daily rebuild deploy `main` before consented quotes exist. A failed `main` build would publish nothing. Pre-launch deploys from another branch were also rejected: `main` is the Pages production branch.
