@@ -7,24 +7,29 @@
     "node": ">=24"
   },
   "scripts": {
-    "dev": "echo 'pnpm dev becomes the Astro dev server in DAV-11'",
-    "build": "echo 'pnpm build becomes the Astro production build in DAV-11'",
-    "check": "echo 'pnpm check becomes astro check in DAV-11'",
+    "dev": "astro dev",
+    "build": "astro build",
+    "check": "astro check",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "prepare": "husky"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.10",
     "@eslint/js": "^10.0.1",
     "eslint": "^10.11.0",
     "husky": "^9.1.7",
     "lint-staged": "^17.6.0",
     "prettier": "^3.6.2",
-    "prettier-plugin-astro": "^1.1.0"
+    "prettier-plugin-astro": "^1.1.0",
+    "typescript": "^6.0.3"
   },
   "lint-staged": {
     "*.{js,mjs,cjs,md,mdc,json,yml,yaml}": "prettier --write",
     "*.{js,mjs,cjs}": "eslint --fix"
+  },
+  "dependencies": {
+    "astro": "^7.3.5"
   }
 }
