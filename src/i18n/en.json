@@ -1,9 +1,12 @@
 {
   "site": {
-    "name": "DataVirgo"
+    "name": "DataVirgo",
+    "wordmarkData": "Data",
+    "wordmarkVirgo": "Virgo"
   },
   "a11y": {
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "mainNav": "Main navigation"
   },
   "nav": {
     "home": "Home",
@@ -17,5 +20,10 @@
   "chart": {
     "title": "Chart",
     "stub": "Placeholder for the chart tool."
+  },
+  "footer": {
+    "substack": "Substack",
+    "privacy": "Privacy",
+    "source": "Source code (AGPL)"
   }
 }

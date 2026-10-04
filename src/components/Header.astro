@@ -1,0 +1,99 @@
+---
+import { visibleNavItems } from "../config/nav";
+import { t } from "../i18n";
+import type { RouteKey } from "../i18n/routes";
+import { href } from "../lib/href";
+
+interface Props {
+  locale: string;
+  route?: RouteKey;
+}
+
+const { locale, route } = Astro.props;
+const items = visibleNavItems();
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="wordmark" href={href("home", locale)}>
+      <span class="wordmark__data">{t("site.wordmarkData", locale)}</span>
+      <span class="wordmark__virgo">{t("site.wordmarkVirgo", locale)}</span>
+    </a>
+    <nav aria-label={t("a11y.mainNav", locale)}>
+      <ul class="nav-list">
+        {items.map((item) => (
+          <li>
+            <a
+              class="nav-link"
+              href={href(item.route, locale)}
+              aria-current={item.route === route ? "page" : undefined}
+            >
+              {t(item.label, locale)}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: var(--border-width) solid var(--color-rule);
+  }
+
+  .site-header__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-6);
+    min-height: var(--header-height);
+  }
+
+  .wordmark {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--touch-target-min);
+    font-family: var(--font-serif);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+  }
+
+  .wordmark__data {
+    color: var(--color-link);
+  }
+
+  .wordmark__virgo {
+    color: var(--color-text);
+  }
+
+  .nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--touch-target-min);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+  }
+
+  .nav-link:hover,
+  .nav-link[aria-current="page"] {
+    color: var(--color-text);
+  }
+
+  .nav-link[aria-current="page"] {
+    text-decoration: underline;
+    text-underline-offset: var(--space-1);
+  }
+</style>

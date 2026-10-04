@@ -1,14 +1,11 @@
 ---
-// Scaffold placeholder. Replaced by the base layout (task 6) and the stub routes (task 8).
+// Scaffold placeholder. Replaced by the stub routes (task 8).
+import Base from "../layouts/Base.astro";
 import ChartSection from "../components/ChartSection.astro";
 import { features } from "../config/features";
+import { t } from "../i18n";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>DataVirgo</title>
-  </head>
-  <body>{features.chartTool && <ChartSection />}</body>
-</html>
+<Base title={t("site.name")} route="home">
+  {features.chartTool && <ChartSection />}
+</Base>

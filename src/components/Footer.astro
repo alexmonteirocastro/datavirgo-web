@@ -1,0 +1,56 @@
+---
+import { sourceRepoUrl, substackUrl } from "../config/site";
+import { t } from "../i18n";
+import { href } from "../lib/href";
+
+interface Props {
+  locale: string;
+}
+
+const { locale } = Astro.props;
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <ul class="footer-links">
+      <li>
+        <a href={substackUrl}>{t("footer.substack", locale)}</a>
+      </li>
+      <li>
+        <a href={href("privacy", locale)}>{t("footer.privacy", locale)}</a>
+      </li>
+      <li>
+        <a href={sourceRepoUrl}>{t("footer.source", locale)}</a>
+      </li>
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--section-gap);
+    border-top: var(--border-width) solid var(--color-rule);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-xs);
+  }
+
+  .site-footer__inner {
+    padding-block: var(--space-7);
+  }
+
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-6);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .footer-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--touch-target-min);
+    color: inherit;
+  }
+</style>

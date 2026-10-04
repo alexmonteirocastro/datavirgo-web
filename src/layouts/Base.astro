@@ -1,0 +1,80 @@
+---
+import "../styles/tokens.css";
+import "../styles/fonts.css";
+import "../styles/global.css";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { defaultLocale, t } from "../i18n";
+import { routeLocales, type RouteKey } from "../i18n/routes";
+import { href } from "../lib/href";
+
+interface Props {
+  title: string;
+  /** The page's route key. Pages that are not in the route map (404) leave it out. */
+  route?: RouteKey;
+}
+
+const { title, route } = Astro.props;
+const locale = Astro.currentLocale ?? defaultLocale;
+
+// hreflang needs absolute URLs, so alternates are emitted only once `site` is set in
+// astro.config.mjs (DAV-15). A locale without a slug for this route has no page to point at.
+const site = Astro.site;
+const alternates =
+  site && route
+    ? routeLocales(route).map((alt) => ({
+        locale: alt,
+        url: new URL(href(route, alt), site).href,
+      }))
+    : [];
+const xDefault = alternates.find((alt) => alt.locale === defaultLocale);
+const documentTitle =
+  route === "home" ? title : `${title} · ${t("site.name", locale)}`;
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{documentTitle}</title>
+    {alternates.map((alt) => (
+      <link rel="alternate" hreflang={alt.locale} href={alt.url} />
+    ))}
+    {xDefault && (
+      <link rel="alternate" hreflang="x-default" href={xDefault.url} />
+    )}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      {t("a11y.skipToContent", locale)}
+    </a>
+    <Header locale={locale} route={route} />
+    <main id="main" tabindex="-1">
+      <div class="container">
+        <slot />
+      </div>
+    </main>
+    <Footer locale={locale} />
+  </body>
+</html>
+
+<style is:global>
+  .skip-link {
+    position: absolute;
+    inset-block-start: var(--space-2);
+    inset-inline-start: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-surface-raised);
+    color: var(--color-text);
+    transform: translateY(-200%);
+  }
+
+  .skip-link:focus {
+    transform: none;
+  }
+
+  main:focus {
+    outline: none;
+  }
+</style>

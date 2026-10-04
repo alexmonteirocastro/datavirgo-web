@@ -23,6 +23,9 @@ for (const [path, messages] of Object.entries(modules)) {
   catalogs[locale] = messages;
 }
 
+/** The locales that have a catalogue. */
+export const locales = Object.keys(catalogs);
+
 /** Look up a string. A missing key throws, so `astro build` fails: there is no silent fallback. */
 export function t(key: MessageKey, locale: string = defaultLocale): string {
   let value: unknown = catalogs[locale];

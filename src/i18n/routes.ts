@@ -26,3 +26,8 @@ export function routeSlug(
   }
   return slug;
 }
+
+/** The locales that have a slug for a route: the ones with a page to point hreflang at. */
+export function routeLocales(route: RouteKey): string[] {
+  return Object.keys(routes[route]);
+}
