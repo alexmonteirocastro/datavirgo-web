@@ -1,3 +1,5 @@
+<!-- Claude's copy (.claude/commands/review-pr.md) delegates to the implementation-validator agent. Keep the output format identical. -->
+
 # Review PR
 
 Review the current branch before it is opened as a PR. Be direct. Cite
@@ -14,6 +16,10 @@ Use three dots so the diff is against the merge base. Read the ticket key from
 the branch name (`<type>/DAV-NNN-slug`) and fetch the Linear ticket if the
 Linear MCP is available. Every change should trace to the ticket's stated
 scope and acceptance criteria. Flag anything that does not.
+
+If `docs/plans/<ticket>-*.md` exists, also check the branch against its
+acceptance criteria and tasks. Mark each criterion PASS, FAIL or UNVERIFIED with
+`file:line` evidence, and flag scope creep against its "Out of scope".
 
 ## 2. Load rules
 

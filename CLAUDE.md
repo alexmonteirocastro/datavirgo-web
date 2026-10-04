@@ -52,6 +52,7 @@ built so Portuguese and other languages can be added.
 - Work is tracked in Linear, team DataVirgo, key `DAV`. Every change maps to one ticket.
 - Branch: `<type>/DAV-NNN-slug` (see CONTRIBUTING.md). One ticket, one PR.
 - Explore and plan before editing. If the plan rests on a wrong assumption, restart the session with a corrected brief rather than patching.
+- Plans live in docs/plans/; run /plan before editing.
 - Never commit, push or open PRs. Alexandre does that.
 
 ## Don't

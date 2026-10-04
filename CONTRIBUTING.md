@@ -46,7 +46,7 @@ branch), then delete the branch. Do not squash or rebase.
 
 1. Pick a ticket from Linear (team DataVirgo, key `DAV`) and move it to In Progress.
 2. Create the branch.
-3. Explore first: ask the assistant to map the relevant code and ADRs, then agree a short plan. If the plan rests on a wrong assumption, start a fresh session with a corrected brief.
+3. Run `/plan DAV-NNN` and approve the plan. If the plan rests on a wrong assumption, start a fresh session with a corrected brief.
 4. Implement in small steps. Run `pnpm check` and `pnpm lint` before finishing.
 5. Run `/review-pr` on the branch and fix Blocking and Should fix items.
 6. Open the PR using the template. Link the ticket.
