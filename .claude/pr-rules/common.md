@@ -20,4 +20,6 @@ Check every PR against these.
 <!-- One imperative bullet per recurring mistake. -->
 
 - In findings docs, state only what the evidence shows. Mark inferences as unverified, and link follow-up tickets created after the doc was written.
+- In ADRs, list every client-side or third-party script the decision implies (widgets, beacons) and say where each loads. Don't leave them implicit under a "zero JS" claim.
 - Mark deliberate exceptions to token rules (standalone fixtures, test pages) with a comment that says why, so a rule-based review does not flag them.
+- In ADRs, list every client-side or third-party script the decision implies (widgets, beacons) and say where each loads. Don't leave them implicit under a 'zero JS' claim.

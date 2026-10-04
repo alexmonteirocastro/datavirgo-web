@@ -1,6 +1,6 @@
 # ADR-0002: Site architecture
 
-- Status: proposed (one open question: the Substack feed URL)
+- Status: proposed
 - Date: 2026-10-04
 - Ticket: [DAV-10](https://linear.app/alex-projects/issue/DAV-10)
 - Unblocks: [DAV-11](https://linear.app/alex-projects/issue/DAV-11) (scaffold), [DAV-14](https://linear.app/alex-projects/issue/DAV-14) (contact form)
@@ -17,7 +17,11 @@ Colours, type and spacing are in [ADR-0001](0001-design-tokens.md). The chart en
 ### Shape and hosting
 
 - **Astro, static output, at the root of this repo** (`datavirgo-web`), separate from `datavirgo-app`. Deployed on Cloudflare Pages. No engine logic is duplicated here.
-- **Zero client JS by default.** An island needs a stated reason. Known ones: the theme switch (inline script, to avoid a flash of the wrong theme) and, later, the chart tool.
+- **Zero client JS by default.** Every script that runs in the browser is named here, with where it loads:
+  - **Theme switch:** a small inline script, so the first paint matches the saved theme.
+  - **Turnstile:** Cloudflare's widget, on the contact page only, so the enquiry form can be checked. The Privacy page says the widget loads there.
+  - **Web Analytics:** Cloudflare's cookieless beacon, on every page. The Privacy page says so. No cookie banner, and no other tracker or third-party script without a new decision.
+  - **Chart tool,** later, and only when `features.chartTool` is on.
 - Data fetching lives in `src/lib/`; components stay presentational.
 - The chart tool is gated by one config value, `features.chartTool` ([DAV-23](https://linear.app/alex-projects/issue/DAV-23)), **off at launch**. It gates the nav item, the home section and the `/chart` route. With the flag off, nothing on the site mentions a chart tool.
 
@@ -34,13 +38,13 @@ Colours, type and spacing are in [ADR-0001](0001-design-tokens.md). The chart en
 
 - At build time, fetch the publication RSS feed and render an index: title, date, excerpt, cover image, each linking out to Substack. Posts are not copied or re-hosted. Cover images are hotlinked from Substack's CDN, not downloaded.
 - The feed carries only recent posts (about 20) and truncates paywalled posts. That is enough for an index.
-- **Daily rebuild** so new posts appear without a push: a Cloudflare Cron Trigger calls the Pages deploy hook. (Alternative in the next section.)
+- **Daily rebuild** so new posts appear without a push: a Cloudflare Cron Trigger calls the Pages deploy hook. The hook URL is a secret and lives in that Worker's secrets, not in this repo. (Alternative in the next section.)
 - A "Subscribe on Substack" link replaces any newsletter of our own.
 - **Circuit breaker:** if the feed cannot be confirmed or parsed, the blog ships as a static "Read my writing on Substack" card. A failed feed fetch at build time must not fail the build or empty the page; it falls back to that card.
 
 ### Contact form
 
-- A **Cloudflare Worker** receives the POST, verifies the Turnstile token server-side, and sends the message to Alexandre's inbox through Cloudflare Email Routing. **No database, no persistence.** This reuses the pattern of Töökratt ADR-0016.
+- A **Cloudflare Worker** receives the POST, verifies the Turnstile token server-side, and sends the message to Alexandre's inbox through Cloudflare Email Routing. **No database, no persistence.** The ticket names Töökratt ADR-0016 as the pattern. That ADR is outside this repo and has not been checked.
 - Fields: name, email, message, optional birth details, and a consent checkbox.
 - **Birth details are optional and never logged.** The Worker logs no request bodies, and the Privacy page says plainly that details are sent by email and not stored.
 - Consultations are enquiry-by-form only. There is no booking or payment flow.
@@ -49,15 +53,15 @@ Colours, type and spacing are in [ADR-0001](0001-design-tokens.md). The chart en
 ### Testimonials
 
 - A content collection with the fields: quote, name or initials, context (for example "natal consultation, 2025"), `consent: boolean` and `placeholder: boolean`.
-- **The production build fails if any entry has `placeholder: true` or `consent: false`.** Invented or unapproved testimonials cannot go live by accident. Development and preview builds show placeholders, visibly marked.
+- **The build fails only on the Cloudflare Pages production deploy, and only if any entry has `placeholder: true` or `consent: false`.** That deploy is the one where `CF_PAGES` is `1` and `CF_PAGES_BRANCH` is `main`, the production branch ([Pages build configuration](https://developers.cloudflare.com/pages/configuration/build-configuration/)). Invented or unapproved testimonials cannot go live by accident. `pnpm dev`, a local `astro build`, and preview deployments may show placeholders, visibly marked. Vite's `import.meta.env.PROD` is not the signal: every `astro build` sets it, including previews.
 
 ### Analytics
 
-- Cloudflare Web Analytics (cookieless), so no cookie banner is needed. No other tracker or third-party script without a new decision.
+- Cloudflare Web Analytics, the cookieless beacon listed under shape and hosting. No other tracker without a new decision.
 
 ### Open question: the Substack feed URL
 
-`substack.com/@datavirgo` is a **profile**, not a publication. The feed is `<publication>.substack.com/feed` or `<custom-domain>/feed`. **Still open.** It needs Alexandre to confirm the publication address; a quick lookup of the profile page did not give a reliable answer, so nothing is recorded here as fact. The URL goes in one config value, so it can be changed without touching code. [DAV-21](https://linear.app/alex-projects/issue/DAV-21) renames the Substack subdomain and adds a `blog.` custom domain, which will change the feed URL once. Update this section, and set the status to accepted, once it is confirmed.
+`substack.com/@datavirgo` is a **profile**, not a publication. The feed is `<publication>.substack.com/feed` or `<custom-domain>/feed`. Unconfirmed. Owner: Alexandre. The URL goes in one config value, so it can be changed without touching code. [DAV-13](https://linear.app/alex-projects/issue/DAV-13) confirms it before the blog index is built. [DAV-21](https://linear.app/alex-projects/issue/DAV-21) renames the Substack subdomain and adds a `blog.` custom domain, which will change the feed URL once. Update this section, and set the status to accepted, once it is confirmed.
 
 ## Consequences
 
@@ -70,7 +74,7 @@ Colours, type and spacing are in [ADR-0001](0001-design-tokens.md). The chart en
 
 ## Alternatives
 
-- **Same repo as the engine and API** (`web/` next to `api/`): rejected. The site and the API have different deploy targets and cadences, and the engine's licence and review rules should not gate copy edits. `datavirgo-web` is its own repo, which is why this ADR is numbered 0002 here (the pitch calls it ADR-0004 in a shared numbering that no longer applies).
+- **Same repo as the engine and API** (`web/` next to `api/`): rejected. The separate repo is [DAV-24](https://linear.app/alex-projects/issue/DAV-24), and `CLAUDE.md` keeps the chart API in `datavirgo-app`. The pitch's "ADR-0004" and `web/` wording are outdated.
 - **A CMS** (Sanity, Decap and similar): rejected. One editor, rare changes, and Markdown in the repo is reviewable and free.
 - **Copying Substack posts into the site**: rejected. It splits the canonical source and invites duplicate-content problems.
 - **Own newsletter or comments**: rejected for launch. Substack already does this.
