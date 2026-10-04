@@ -75,12 +75,17 @@ do not edit history.
 Prettier (with `prettier-plugin-astro`), ESLint, and Husky are installed. The
 pre-commit hook runs both on staged files.
 
-- `pnpm lint` — ESLint
+- `pnpm dev` — Astro dev server
+- `pnpm check` — `astro check` (types and Astro diagnostics)
+- `pnpm build` — production build into `dist/`
+- `pnpm lint` — ESLint, including the `no-raw-text` rule that fails on user-facing text written straight into an `.astro` template
 - `pnpm format` — write Prettier formatting
 - `pnpm format:check` — fail if formatting is off (CI always runs this)
-- `pnpm check` and `pnpm build` — no-ops until the Astro app lands in DAV-11
+- `pnpm test:literals` — proves the `no-raw-text` rule fails on its violation fixture
+- `pnpm test:pt-build` — proves a second locale builds without a refactor, in a temporary copy of the repo
+- `node scripts/check-no-chart.mjs` — run after `pnpm build`; fails if the chart tool is reachable while `features.chartTool` is off
 
-CI always runs `pnpm format:check` and the markdown link check. It skips `pnpm lint`, `pnpm check`, and `pnpm build` when the diff is only markdown, files under `docs/`, `LICENSE`, or the pull request template.
+CI always runs `pnpm format:check` and the markdown link check. It skips `pnpm lint`, `pnpm check`, `pnpm build` and the test and check scripts above when the diff is only markdown, files under `docs/`, `LICENSE`, or the pull request template.
 
 ## Quality bar
 

@@ -13,11 +13,12 @@ built so Portuguese and other languages can be added.
 
 ## Commands
 
-- `pnpm dev` — no-op until the Astro dev server lands in DAV-11
-- `pnpm build` — no-op until the Astro production build lands in DAV-11
-- `pnpm check` — no-op until `astro check` lands in DAV-11
-- `pnpm lint` — ESLint
-- `pnpm format:check` — Prettier
+- `pnpm dev` — Astro dev server
+- `pnpm build` — Astro production build
+- `pnpm check` — `astro check`
+- `pnpm lint` — ESLint (includes the no-raw-text rule for `.astro` templates)
+- `pnpm format` — Prettier, write
+- `pnpm format:check` — Prettier, check
 
 ## Priorities and scope
 
