@@ -1,0 +1,195 @@
+/*
+ * DataVirgo design tokens. Decision record: docs/adr/0001-design-tokens.md
+ * Source of the values: the mockup canvas (Identity board, Wheel component).
+ *
+ * Colours are named by role, never by hue. Both themes define every colour
+ * role. The theme is chosen by `data-theme` on <html> ("dark" | "light");
+ * without it, the OS preference decides. DAV-11 sets and persists the attribute.
+ */
+
+/* ---------- Theme-independent tokens ---------- */
+:root {
+  /* Type families (self-hosted in DAV-11) */
+  --font-serif: "EB Garamond", Georgia, "Times New Roman", serif;
+  --font-sans:
+    "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:
+    "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* Weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  /* Type scale (rem, 1rem = 16px) */
+  --font-size-2xs: 0.75rem; /* 12px  eyebrows, mono captions */
+  --font-size-xs: 0.8125rem; /* 13px  labels, footer fine print */
+  --font-size-sm: 0.9375rem; /* 15px  UI, nav, buttons */
+  --font-size-base: 1.0625rem; /* 17px  body */
+  --font-size-md: 1.25rem; /* 20px  lead paragraph */
+  --font-size-lg: 1.625rem; /* 26px  h3, card titles */
+  --font-size-xl: 2rem; /* 32px  h2 */
+  --font-size-2xl: clamp(
+    2rem,
+    1.6rem + 1.2vw,
+    2.5rem
+  ); /* 32-40px  section titles */
+  --font-size-3xl: clamp(
+    2.25rem,
+    1.5rem + 2.4vw,
+    3.5rem
+  ); /* 36-56px  page titles */
+  --font-size-display: clamp(
+    2.875rem,
+    1.9rem + 3.3vw,
+    4.75rem
+  ); /* 46-76px  home hero */
+
+  /* Line heights */
+  --line-height-tight: 1.05; /* display */
+  --line-height-heading: 1.2;
+  --line-height-body: 1.6;
+
+  /* Letter spacing */
+  --letter-spacing-display: -0.01em;
+  --letter-spacing-eyebrow: 0.14em;
+
+  /* Numerals: use on any data (degrees, dates, tables) */
+  --font-numeric-data: tabular-nums;
+
+  /* Reading measure */
+  --measure: 66ch; /* long-form text, about 680-720px at body size */
+  --measure-narrow: 34rem; /* lead paragraphs */
+
+  /* Spacing (4px base) */
+  --space-1: 0.25rem; /* 4 */
+  --space-2: 0.5rem; /* 8 */
+  --space-3: 0.75rem; /* 12 */
+  --space-4: 1rem; /* 16 */
+  --space-5: 1.25rem; /* 20 */
+  --space-6: 1.5rem; /* 24 */
+  --space-7: 2rem; /* 32 */
+  --space-8: 2.5rem; /* 40 */
+  --space-9: 3rem; /* 48 */
+  --space-10: 4rem; /* 64 */
+  --space-11: 6rem; /* 96 */
+  --space-12: 7rem; /* 112 */
+
+  /* Layout */
+  --gutter: clamp(
+    1.25rem,
+    7.24vw - 0.515rem,
+    6rem
+  ); /* 20px on phones, 96px at 1440 */
+  --section-gap: clamp(
+    4rem,
+    2.886rem + 4.57vw,
+    7rem
+  ); /* 64-112px between sections */
+  --header-height: 5.5rem; /* 88px */
+  --container-max: 90rem; /* 1440px */
+
+  /* Radii */
+  --radius-sm: 2px; /* buttons, inputs, cards */
+  --radius-pill: 999px; /* theme switch */
+
+  /* Borders */
+  --border-width: 1px;
+
+  /* Controls */
+  --control-height: 3rem; /* 48px inputs and primary buttons */
+  --touch-target-min: 2.75rem; /* 44px */
+
+  /* Focus */
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+
+  /* Chart wheel (non-colour) */
+  --chart-structure-opacity: 0.55; /* cusps, degree ticks, sign ring lines */
+  --chart-aspect-hard-dash: 5 3; /* stroke-dasharray; soft aspects are solid */
+  --chart-glyph-stroke: 1.6;
+}
+
+/* ---------- Observatory (dark): default ---------- */
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-bg: #080d16;
+  --color-surface: #0e1523;
+  --color-surface-raised: #141d30;
+  --color-rule: #233049; /* dividers, card borders (decorative) */
+  --color-border-field: #56657f; /* input and ghost-button borders */
+  --color-text: #e4e9f0;
+  --color-text-muted: #95a0b3;
+  --color-link: #5aa2ea; /* links and the "Data" in the wordmark */
+  --color-accent: #5aa2ea; /* primary button fill, active switch */
+  --color-on-accent: #06101f;
+  --color-focus: #5aa2ea;
+
+  --color-aspect-hard: #e0955f;
+  --color-aspect-soft: #5aa2ea;
+  --color-retrograde: #ff6b6b;
+
+  /* Element tints (quiet background band on the wheel); same values in both themes for now */
+  --color-element-fire: rgb(232 120 72 / 0.16);
+  --color-element-earth: rgb(132 168 92 / 0.16);
+  --color-element-air: rgb(226 196 86 / 0.14);
+  --color-element-water: rgb(84 146 230 / 0.18);
+}
+
+/* ---------- Paper (light) ---------- */
+/* Repeated twice on purpose: once for the OS preference, once for an explicit choice. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+
+    --color-bg: #f5f3ee;
+    --color-surface: #ffffff;
+    --color-surface-raised: #ece8df;
+    --color-rule: #d5d0c4;
+    --color-border-field: #8a8577;
+    --color-text: #141b2b;
+    --color-text-muted: #505a6b;
+    --color-link: #1f5fae;
+    --color-accent: #1f5fae;
+    --color-on-accent: #ffffff;
+    --color-focus: #1f5fae;
+
+    --color-aspect-hard: #b4541c;
+    --color-aspect-soft: #1f5fae;
+    --color-retrograde: #b42318;
+
+    /* Element tints (quiet background band on the wheel); same values in both themes for now */
+    --color-element-fire: rgb(232 120 72 / 0.16);
+    --color-element-earth: rgb(132 168 92 / 0.16);
+    --color-element-air: rgb(226 196 86 / 0.14);
+    --color-element-water: rgb(84 146 230 / 0.18);
+  }
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --color-bg: #f5f3ee;
+  --color-surface: #ffffff;
+  --color-surface-raised: #ece8df;
+  --color-rule: #d5d0c4;
+  --color-border-field: #8a8577;
+  --color-text: #141b2b;
+  --color-text-muted: #505a6b;
+  --color-link: #1f5fae;
+  --color-accent: #1f5fae;
+  --color-on-accent: #ffffff;
+  --color-focus: #1f5fae;
+
+  --color-aspect-hard: #b4541c;
+  --color-aspect-soft: #1f5fae;
+  --color-retrograde: #b42318;
+
+  /* Element tints (quiet background band on the wheel); same values in both themes for now */
+  --color-element-fire: rgb(232 120 72 / 0.16);
+  --color-element-earth: rgb(132 168 92 / 0.16);
+  --color-element-air: rgb(226 196 86 / 0.14);
+  --color-element-water: rgb(84 146 230 / 0.18);
+}

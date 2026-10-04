@@ -6,10 +6,10 @@ Write a new ADR from [0000-template.md](0000-template.md). To reverse a decision
 
 ## This repo
 
-| ADR  | Subject           | Status                                                               |
-| ---- | ----------------- | -------------------------------------------------------------------- |
-| 0001 | Design tokens     | Forthcoming, [DAV-9](https://linear.app/alex-projects/issue/DAV-9)   |
-| 0002 | Site architecture | Forthcoming, [DAV-10](https://linear.app/alex-projects/issue/DAV-10) |
+| ADR                           | Subject           | Status                                                               |
+| ----------------------------- | ----------------- | -------------------------------------------------------------------- |
+| [0001](0001-design-tokens.md) | Design tokens     | Accepted, [DAV-9](https://linear.app/alex-projects/issue/DAV-9)      |
+| 0002                          | Site architecture | Forthcoming, [DAV-10](https://linear.app/alex-projects/issue/DAV-10) |
 
 ## App repo (the site depends on these)
 
