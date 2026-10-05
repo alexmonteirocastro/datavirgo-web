@@ -1,11 +1,13 @@
 ---
 // Home-page chart-tool section. Rendered only while features.chartTool is on (see index.astro).
-import { t } from "../i18n";
+import { defaultLocale, t } from "../i18n";
 import { href } from "../lib/href";
+
+const locale = Astro.currentLocale ?? defaultLocale;
 ---
 
 <section data-feature="chartTool">
-  <h2>{t("chart.title")}</h2>
-  <p>{t("chart.stub")}</p>
-  <a href={href("chart")}>{t("nav.chart")}</a>
+  <h2>{t("chart.title", locale)}</h2>
+  <p>{t("chart.stub", locale)}</p>
+  <a href={href("chart", locale)}>{t("nav.chart", locale)}</a>
 </section>

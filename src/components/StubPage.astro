@@ -13,7 +13,7 @@ const { route, title } = Astro.props;
 const locale = Astro.currentLocale ?? defaultLocale;
 ---
 
-<Base title={t(title, locale)} route={route}>
+<Base title={title} route={route}>
   <h1>{t(title, locale)}</h1>
   <p>{t("pages.placeholder", locale)}</p>
 </Base>

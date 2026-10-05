@@ -5,18 +5,20 @@ import "../styles/global.css";
 import ThemeScript from "../components/ThemeScript.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
-import { defaultLocale, t } from "../i18n";
+import { defaultLocale, t, type MessageKey } from "../i18n";
 import { routeLocales, type RouteKey } from "../i18n/routes";
 import { href } from "../lib/href";
 
 interface Props {
-  title: string;
+  /** A key in the locale catalogue. A raw string is a type error, so it cannot bypass t(). */
+  title: MessageKey;
   /** The page's route key. Pages that are not in the route map (404) leave it out. */
   route?: RouteKey;
 }
 
 const { title, route } = Astro.props;
 const locale = Astro.currentLocale ?? defaultLocale;
+const pageTitle = t(title, locale);
 
 // hreflang needs absolute URLs, so alternates are emitted only once `site` is set in
 // astro.config.mjs (DAV-15). A locale without a slug for this route has no page to point at.
@@ -30,7 +32,7 @@ const alternates =
     : [];
 const xDefault = alternates.find((alt) => alt.locale === defaultLocale);
 const documentTitle =
-  route === "home" ? title : `${title} · ${t("site.name", locale)}`;
+  route === "home" ? pageTitle : `${pageTitle} · ${t("site.name", locale)}`;
 ---
 
 <!doctype html>

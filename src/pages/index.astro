@@ -2,11 +2,13 @@
 import Base from "../layouts/Base.astro";
 import ChartSection from "../components/ChartSection.astro";
 import { features } from "../config/features";
-import { t } from "../i18n";
+import { defaultLocale, t } from "../i18n";
+
+const locale = Astro.currentLocale ?? defaultLocale;
 ---
 
-<Base title={t("pages.home.title")} route="home">
-  <h1>{t("pages.home.title")}</h1>
-  <p>{t("pages.placeholder")}</p>
+<Base title="pages.home.title" route="home">
+  <h1>{t("pages.home.title", locale)}</h1>
+  <p>{t("pages.placeholder", locale)}</p>
   {features.chartTool && <ChartSection />}
 </Base>

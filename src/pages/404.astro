@@ -1,9 +1,11 @@
 ---
 import Base from "../layouts/Base.astro";
-import { t } from "../i18n";
+import { defaultLocale, t } from "../i18n";
+
+const locale = Astro.currentLocale ?? defaultLocale;
 ---
 
-<Base title={t("pages.notFound.title")}>
-  <h1>{t("pages.notFound.title")}</h1>
-  <p>{t("pages.notFound.body")}</p>
+<Base title="pages.notFound.title">
+  <h1>{t("pages.notFound.title", locale)}</h1>
+  <p>{t("pages.notFound.body", locale)}</p>
 </Base>

@@ -2,10 +2,12 @@
 // The /chart page. It lives outside src/pages/ and is injected by astro.config.mjs
 // only while features.chartTool is on.
 import Base from "../../layouts/Base.astro";
-import { t } from "../../i18n";
+import { defaultLocale, t } from "../../i18n";
+
+const locale = Astro.currentLocale ?? defaultLocale;
 ---
 
-<Base title={t("chart.title")} route="chart">
-  <h1>{t("chart.title")}</h1>
-  <p>{t("chart.stub")}</p>
+<Base title="chart.title" route="chart">
+  <h1>{t("chart.title", locale)}</h1>
+  <p>{t("chart.stub", locale)}</p>
 </Base>
