@@ -87,6 +87,7 @@ const { locale, route } = Astro.props;
   }
 
   /* The SVG is injected as markup, so scoped styles do not reach it. */
+  /* Mark and menu icon sizes use spacing tokens on purpose. There is no icon-size token. */
   .brand__mark :global(svg) {
     display: block;
     width: var(--space-7);
