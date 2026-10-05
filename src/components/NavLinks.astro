@@ -1,0 +1,62 @@
+---
+import { visibleNavItems } from "../config/nav";
+import { t } from "../i18n";
+import type { RouteKey } from "../i18n/routes";
+import { href } from "../lib/href";
+
+interface Props {
+  locale: string;
+  route?: RouteKey;
+  /** inline: a row in the header. stacked: a column in the mobile menu. */
+  variant: "inline" | "stacked";
+}
+
+const { locale, route, variant } = Astro.props;
+const items = visibleNavItems();
+---
+
+<ul class:list={["nav-list", `nav-list--${variant}`]}>
+  {items.map((item) => (
+    <li>
+      <a
+        class="nav-link"
+        href={href(item.route, locale)}
+        aria-current={item.route === route ? "page" : undefined}
+      >
+        {t(item.label, locale)}
+      </a>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .nav-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .nav-list--inline {
+    display: flex;
+    gap: var(--space-1) var(--space-6);
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    min-height: var(--touch-target-min);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+  }
+
+  .nav-link:hover,
+  .nav-link[aria-current="page"] {
+    color: var(--color-text);
+  }
+
+  .nav-link[aria-current="page"] {
+    text-decoration: underline;
+    text-underline-offset: var(--space-1);
+  }
+</style>

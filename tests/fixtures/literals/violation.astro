@@ -1,0 +1,13 @@
+---
+// DELIBERATE VIOLATIONS. This fixture proves the no-raw-text rule fails. It is not part of the
+// site (it sits outside src/) and `pnpm lint` ignores tests/fixtures/. Expected: 6 reports.
+---
+
+<main>
+  <h1>A raw heading</h1>
+  <img src="/x.png" alt="A raw alt text" />
+  <a href="/y" aria-label="A raw label" title="A raw title">
+    link
+  </a>
+  <input placeholder="A raw placeholder" />
+</main>

@@ -1,0 +1,153 @@
+---
+import { t } from "../i18n";
+
+interface Props {
+  locale: string;
+}
+
+const { locale } = Astro.props;
+---
+
+<!-- Behaviour lives in ThemeScript.astro. aria-checked is corrected there once the page is parsed. -->
+<!-- Deliberate exception to the glyph rule: the sun here is a rays-style icon, following the
+     sketches (Alexandre, accepted). It is not src/assets/glyphs/sun.svg, which is the
+     astrological Sun. The moon matches moon.svg. -->
+
+<button
+  type="button"
+  class="theme-switch"
+  role="switch"
+  aria-checked="true"
+  aria-label={t("theme.label", locale)}
+  data-theme-toggle
+>
+  <span class="theme-switch__track">
+    <span class="theme-switch__icon theme-switch__icon--moon">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.6"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M9 3.5A8.5 8.5 0 1 1 9 20.5 11 11 0 0 0 9 3.5z"></path>
+      </svg>
+    </span>
+    <span class="theme-switch__icon theme-switch__icon--sun">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.6"
+        stroke-linecap="round"
+        aria-hidden="true"
+      >
+        <circle cx="12" cy="12" r="3.25"></circle>
+        <path d="M12 3.2v2.3M12 18.5v2.3M3.2 12h2.3M18.5 12h2.3M5.8 5.8l1.6 1.6M16.6 16.6l1.6 1.6M18.2 5.8l-1.6 1.6M7.4 16.6l-1.6 1.6"></path>
+      </svg>
+    </span>
+    <span class="theme-switch__knob"></span>
+  </span>
+</button>
+
+<style is:global>
+  .theme-switch {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--touch-target-min);
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--color-text-muted);
+    cursor: pointer;
+  }
+
+  .theme-switch__track {
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--space-7) var(--space-7);
+    gap: var(--space-1);
+    padding: var(--space-1);
+    border: var(--border-width) solid var(--color-border-field);
+    border-radius: var(--radius-pill);
+    background: var(--color-bg);
+  }
+
+  .theme-switch__icon {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: var(--space-7);
+    height: var(--space-7);
+    color: var(--color-text-muted);
+  }
+
+  .theme-switch__icon svg {
+    width: var(--space-5);
+    height: var(--space-5);
+  }
+
+  .theme-switch__knob {
+    position: absolute;
+    z-index: 0;
+    inset-block-start: var(--space-1);
+    inset-inline-start: var(--space-1);
+    width: var(--space-7);
+    height: var(--space-7);
+    border-radius: var(--radius-pill);
+    background: var(--color-accent);
+  }
+
+  /* Moon is on the left, sun on the right. Dark keeps the knob on the moon, so it is
+     right on first paint, before any script has run. */
+  .theme-switch__knob,
+  :root[data-theme="dark"] .theme-switch__knob {
+    transform: none;
+  }
+
+  .theme-switch__icon--moon,
+  :root[data-theme="dark"] .theme-switch__icon--moon {
+    color: var(--color-on-accent);
+  }
+
+  :root[data-theme="dark"] .theme-switch__icon--sun {
+    color: var(--color-text-muted);
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) .theme-switch__knob {
+      transform: translateX(calc(var(--space-7) + var(--space-1)));
+    }
+
+    :root:not([data-theme="dark"]) .theme-switch__icon--moon {
+      color: var(--color-text-muted);
+    }
+
+    :root:not([data-theme="dark"]) .theme-switch__icon--sun {
+      color: var(--color-on-accent);
+    }
+  }
+
+  :root[data-theme="light"] .theme-switch__knob {
+    transform: translateX(calc(var(--space-7) + var(--space-1)));
+  }
+
+  :root[data-theme="light"] .theme-switch__icon--moon {
+    color: var(--color-text-muted);
+  }
+
+  :root[data-theme="light"] .theme-switch__icon--sun {
+    color: var(--color-on-accent);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .theme-switch__knob {
+      transition: transform 150ms ease;
+    }
+  }
+</style>

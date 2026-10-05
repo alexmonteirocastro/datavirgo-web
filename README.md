@@ -14,11 +14,14 @@ Package manager: pnpm.
 nvm use
 corepack enable
 pnpm install
+pnpm dev            # Astro dev server
+pnpm check          # astro check
+pnpm build          # production build into dist/
 pnpm lint
 pnpm format:check
 ```
 
-`pnpm dev` and `pnpm build` print a notice until the Astro app lands in DAV-11.
+`pnpm test:literals` and `pnpm test:pt-build` run the repo's own guardrail tests. [CONTRIBUTING](CONTRIBUTING.md) lists every command.
 
 ## Docs
 

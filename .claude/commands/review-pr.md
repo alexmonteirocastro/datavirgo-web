@@ -1,49 +1,33 @@
-# Review PR
+---
+description: Review the current branch before it is opened as a PR. Checks it against the plan when one exists.
+---
 
-Review the current branch before it is opened as a PR. Be direct. Cite
-`file:line`. Report real issues only; do not manufacture concerns.
+<!-- Cursor keeps a full inline copy in .cursor/commands/review-pr.md. Keep the output format identical. -->
 
-## 1. Scope the diff
+Review the current branch with the `implementation-validator` subagent. The
+subagent does the review; you gather its input and relay its output.
 
-    git fetch origin main
-    git log --no-merges origin/main..HEAD --oneline
-    git diff origin/main...HEAD --stat
-    git diff origin/main...HEAD
+## 1. Gather input
 
-Use three dots so the diff is against the merge base. Read the ticket key from
-the branch name (`<type>/DAV-NNN-slug`) and fetch the Linear ticket if the
-Linear MCP is available. Every change should trace to the ticket's stated
-scope and acceptance criteria. Flag anything that does not.
+Read the ticket key from the branch name (`<type>/DAV-NNN-slug`). Fetch the
+ticket from Linear with the Linear MCP if available (subagents cannot reach the
+MCP, so pass the text on). If it is unavailable, say so and continue.
 
-## 2. Load rules
+Look for a plan: `docs/plans/<ticket key>-*.md`. If one exists, pass its path.
+If none exists, pass no plan path.
 
-Always read `CLAUDE.md` and `.claude/pr-rules/common.md`.
-If the diff touches `src/styles/**`, tokens or themes, also read
-`.claude/pr-rules/design.md` and `docs/adr/0001-design-tokens.md`.
-If it touches `docs/adr/**` or architecture, read the relevant ADRs.
-Apply every bullet under "Lessons learned" in each file as a check.
+## 2. Delegate
 
-## 3. Output (exactly this format)
+Run `implementation-validator` with the ticket text (if any) and the plan path
+(if any).
 
-    ## Summary
-    <one paragraph: what the branch does, and whether it matches the ticket>
+## 3. Output
 
-    ## Blocking
-    - [file:line] issue, why it blocks
+Print the subagent's output unchanged, in its format: Summary, Blocking, Should
+fix, Nice to have, Verified. With a plan, it also includes the "Plan
+conformance" table and the final `Verdict: READY | NOT READY` line. Without a
+plan, behave as before: no table, no verdict line. The output must paste into
+the PR template's "AI review summary".
 
-    ## Should fix
-    - [file:line] issue
-
-    ## Nice to have
-    - issue
-
-    ## Verified
-    - what was checked and looks good
-
-If nothing blocks, say so.
-
-## 4. Rules
-
-- Read-only. Do not edit files, commit, push or comment on PRs.
-- If you find a recurring issue worth remembering, suggest one bullet for the
-  relevant "Lessons learned" section. Do not edit the rules file yourself.
+Read-only. Do not edit files, commit, push or comment on PRs. If the subagent
+suggests a "Lessons learned" bullet, pass it on; do not edit the rules file.

@@ -1,0 +1,61 @@
+{
+  "site": {
+    "name": "DataVirgo",
+    "wordmarkData": "Data",
+    "wordmarkVirgo": "Virgo"
+  },
+  "a11y": {
+    "skipToContent": "Saltar para o conteúdo",
+    "mainNav": "Navegação principal",
+    "menu": "Menu"
+  },
+  "nav": {
+    "home": "Início",
+    "about": "Sobre",
+    "approach": "Abordagem",
+    "consultations": "Consultas",
+    "testimonials": "Testemunhos",
+    "blog": "Blogue",
+    "chart": "Mapa"
+  },
+  "chart": {
+    "title": "Mapa",
+    "stub": "Marcador da ferramenta de mapas."
+  },
+  "footer": {
+    "substack": "Substack",
+    "privacy": "Privacidade",
+    "source": "Código-fonte (AGPL)"
+  },
+  "theme": {
+    "label": "Tema escuro"
+  },
+  "pages": {
+    "placeholder": "Marcador. O conteúdo desta página é adicionado mais tarde.",
+    "home": {
+      "title": "DataVirgo"
+    },
+    "about": {
+      "title": "Sobre"
+    },
+    "approach": {
+      "title": "Abordagem"
+    },
+    "consultations": {
+      "title": "Consultas"
+    },
+    "testimonials": {
+      "title": "Testemunhos"
+    },
+    "blog": {
+      "title": "Blogue"
+    },
+    "privacy": {
+      "title": "Privacidade"
+    },
+    "notFound": {
+      "title": "Página não encontrada",
+      "body": "Esta página não existe."
+    }
+  }
+}

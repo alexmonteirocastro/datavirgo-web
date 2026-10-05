@@ -62,6 +62,8 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
+      - name: The raw-text rule fails on its violation fixture
+        run: pnpm test:literals
 
   check-build:
     needs: changes
@@ -77,6 +79,10 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
       - run: pnpm build
+      - name: No chart tool in the build while the flag is off
+        run: node scripts/check-no-chart.mjs
+      - name: A second locale builds without a refactor
+        run: pnpm test:pt-build
 
   ci:
     if: always()

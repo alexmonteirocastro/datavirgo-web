@@ -1,0 +1,19 @@
+---
+// Placeholder page body for the launch routes. Content arrives with DAV-12 and later tickets.
+import Base from "../layouts/Base.astro";
+import { defaultLocale, t, type MessageKey } from "../i18n";
+import type { RouteKey } from "../i18n/routes";
+
+interface Props {
+  route: RouteKey;
+  title: MessageKey;
+}
+
+const { route, title } = Astro.props;
+const locale = Astro.currentLocale ?? defaultLocale;
+---
+
+<Base title={title} route={route}>
+  <h1>{t(title, locale)}</h1>
+  <p>{t("pages.placeholder", locale)}</p>
+</Base>

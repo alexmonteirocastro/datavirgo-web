@@ -13,11 +13,12 @@ built so Portuguese and other languages can be added.
 
 ## Commands
 
-- `pnpm dev` — no-op until the Astro dev server lands in DAV-11
-- `pnpm build` — no-op until the Astro production build lands in DAV-11
-- `pnpm check` — no-op until `astro check` lands in DAV-11
-- `pnpm lint` — ESLint
-- `pnpm format:check` — Prettier
+- `pnpm dev` — Astro dev server
+- `pnpm build` — Astro production build
+- `pnpm check` — `astro check`
+- `pnpm lint` — ESLint (includes the no-raw-text rule for `.astro` templates)
+- `pnpm format` — Prettier, write
+- `pnpm format:check` — Prettier, check
 
 ## Priorities and scope
 
@@ -52,6 +53,7 @@ built so Portuguese and other languages can be added.
 - Work is tracked in Linear, team DataVirgo, key `DAV`. Every change maps to one ticket.
 - Branch: `<type>/DAV-NNN-slug` (see CONTRIBUTING.md). One ticket, one PR.
 - Explore and plan before editing. If the plan rests on a wrong assumption, restart the session with a corrected brief rather than patching.
+- Plans live in docs/plans/; run /plan before editing.
 - Never commit, push or open PRs. Alexandre does that.
 
 ## Don't

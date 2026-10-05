@@ -1,0 +1,168 @@
+---
+import NavLinks from "./NavLinks.astro";
+import ThemeSwitch from "./ThemeSwitch.astro";
+// Inlined so the mark follows the theme tokens (src/assets/brand/README.md).
+import markSvg from "../assets/brand/mark-compact.svg?raw";
+import { t } from "../i18n";
+import type { RouteKey } from "../i18n/routes";
+import { href } from "../lib/href";
+
+interface Props {
+  locale: string;
+  route?: RouteKey;
+}
+
+const { locale, route } = Astro.props;
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href={href("home", locale)}>
+      <span class="brand__mark" aria-hidden="true">
+        <Fragment set:html={markSvg} />
+      </span>
+      <span class="wordmark">
+        <span class="wordmark__data">{t("site.wordmarkData", locale)}</span>
+        <span class="wordmark__virgo">{t("site.wordmarkVirgo", locale)}</span>
+      </span>
+    </a>
+
+    <!-- From the breakpoint up the nav is inline. Below it, the menu below replaces it. -->
+    <nav class="nav-inline" aria-label={t("a11y.mainNav", locale)}>
+      <NavLinks locale={locale} route={route} variant="inline" />
+    </nav>
+
+    <div class="site-header__actions">
+      <ThemeSwitch locale={locale} />
+
+      <!-- Native disclosure, so the mobile menu needs no JavaScript. -->
+      <details class="menu">
+        <summary class="menu__button" aria-label={t("a11y.menu", locale)}>
+          <!-- Hamburger: not in the DataVirgo glyph set. It follows the sketch (mobile header). -->
+          <svg
+            class="menu__icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <path d="M4 7h16M4 12h16M4 17h16"></path>
+          </svg>
+        </summary>
+        <div class="menu__panel">
+          <nav class="container" aria-label={t("a11y.mainNav", locale)}>
+            <NavLinks locale={locale} route={route} variant="stacked" />
+          </nav>
+        </div>
+      </details>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: relative;
+    border-bottom: var(--border-width) solid var(--color-rule);
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    min-height: var(--header-height);
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: var(--touch-target-min);
+    text-decoration: none;
+  }
+
+  .brand__mark {
+    display: inline-flex;
+  }
+
+  /* The SVG is injected as markup, so scoped styles do not reach it. */
+  /* Mark and menu icon sizes use spacing tokens on purpose. There is no icon-size token. */
+  .brand__mark :global(svg) {
+    display: block;
+    width: var(--space-7);
+    height: var(--space-7);
+  }
+
+  .wordmark {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .wordmark__data {
+    color: var(--color-link);
+  }
+
+  .wordmark__virgo {
+    color: var(--color-text);
+  }
+
+  .nav-inline {
+    display: none;
+  }
+
+  .site-header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-inline-start: auto;
+  }
+
+  .menu__button {
+    display: grid;
+    place-items: center;
+    width: var(--touch-target-min);
+    height: var(--touch-target-min);
+    color: var(--color-text);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .menu__button::-webkit-details-marker {
+    display: none;
+  }
+
+  .menu__icon {
+    width: var(--space-6);
+    height: var(--space-6);
+    stroke-width: var(--chart-glyph-stroke);
+  }
+
+  .menu__panel {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-start: 100%;
+    z-index: 10;
+    padding-block: var(--space-2);
+    border-bottom: var(--border-width) solid var(--color-rule);
+    background: var(--color-bg);
+  }
+
+  /* Breakpoint: media queries cannot read custom properties, so this is the one raw value.
+     Wide enough for the brand, six nav links and the switch on one row. */
+  @media (min-width: 56rem) {
+    .nav-inline {
+      display: block;
+      margin-inline-start: auto;
+    }
+
+    .site-header__actions {
+      margin-inline-start: 0;
+    }
+
+    .menu {
+      display: none;
+    }
+  }
+</style>

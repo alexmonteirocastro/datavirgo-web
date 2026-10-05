@@ -1,0 +1,25 @@
+---
+// Must pass: every user-facing string comes from t(). Expected: 0 reports.
+import { t } from "../../../src/i18n";
+interface Props {
+  label: string;
+}
+const { label } = Astro.props;
+---
+
+<main>
+  <h1>{t("pages.home.title")}</h1>
+  <img src="/x.png" alt={t("pages.home.title")} />
+  <a href="/y" aria-label={label}>
+    {t("nav.about")}
+  </a>
+  <span>·</span>
+  <script is:inline>
+    var message = "text inside a script is code, not copy";
+  </script>
+  <style>
+    main {
+      color: red;
+    }
+  </style>
+</main>

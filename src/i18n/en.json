@@ -1,0 +1,61 @@
+{
+  "site": {
+    "name": "DataVirgo",
+    "wordmarkData": "Data",
+    "wordmarkVirgo": "Virgo"
+  },
+  "a11y": {
+    "skipToContent": "Skip to content",
+    "mainNav": "Main navigation",
+    "menu": "Menu"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "approach": "Approach",
+    "consultations": "Consultations",
+    "testimonials": "Testimonials",
+    "blog": "Blog",
+    "chart": "Chart"
+  },
+  "chart": {
+    "title": "Chart",
+    "stub": "Placeholder for the chart tool."
+  },
+  "footer": {
+    "substack": "Substack",
+    "privacy": "Privacy",
+    "source": "Source code (AGPL)"
+  },
+  "theme": {
+    "label": "Dark theme"
+  },
+  "pages": {
+    "placeholder": "Placeholder. The content for this page is added in a later ticket.",
+    "home": {
+      "title": "DataVirgo"
+    },
+    "about": {
+      "title": "About"
+    },
+    "approach": {
+      "title": "Approach"
+    },
+    "consultations": {
+      "title": "Consultations"
+    },
+    "testimonials": {
+      "title": "Testimonials"
+    },
+    "blog": {
+      "title": "Blog"
+    },
+    "privacy": {
+      "title": "Privacy"
+    },
+    "notFound": {
+      "title": "Page not found",
+      "body": "This page does not exist."
+    }
+  }
+}
