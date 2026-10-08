@@ -1,12 +1,12 @@
 ---
-title: "Experience and approach"
+title: About
 placeholder: true
 ---
 
-## Experience
-
-[PLACEHOLDER] Alexandre's experience and knowledge of astrology. Replace with real copy before launch.
+Placeholder copy — Alexandre's background and experience have not been written
+yet. A description of his experience and knowledge of astrology will go here.
 
 ## Approach
 
-[PLACEHOLDER] The style of astrology Alexandre practises. Replace with real copy before launch.
+Placeholder copy — the style of astrology Alexandre practises will be described
+here. Real copy to be supplied before launch.

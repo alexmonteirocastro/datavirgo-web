@@ -1,10 +1,12 @@
 ---
-title: "Astrology, read with care and precision"
+title: "DataVirgo"
 placeholder: true
 ---
 
-[PLACEHOLDER] One-line introduction to Alexandre and his astrology practice. Replace with real copy before launch.
+Placeholder copy — the home introduction has not been written yet. A one-line
+introduction to Alexandre and his approach to astrology will go here.
 
 ## What a consultation is
 
-[PLACEHOLDER] A short description of what a consultation involves and who it is for. Replace with real copy before launch.
+Placeholder copy — a short description of what a consultation involves and who it
+is for. Real copy to be supplied before launch.

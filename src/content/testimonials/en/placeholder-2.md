@@ -1,7 +1,7 @@
 ---
-quote: "[PLACEHOLDER] Second seed testimonial, unconsented on purpose so the DAV-15 guard has something to catch. Must not go live."
+quote: "[PLACEHOLDER] A second placeholder quote, kept until a real one is consented."
 name: "[PLACEHOLDER] Client initials"
-context: "[PLACEHOLDER] natal consultation, year"
+context: "[PLACEHOLDER] consultation type, year"
 consent: false
 placeholder: true
 ---

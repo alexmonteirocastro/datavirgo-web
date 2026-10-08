@@ -1,7 +1,7 @@
 ---
-quote: "[PLACEHOLDER] A real, consented client testimonial will appear here. This entry exists only to exercise the collection and must not go live."
+quote: "[PLACEHOLDER] A client's words will appear here once they have consented."
 name: "[PLACEHOLDER] Client name"
-context: "[PLACEHOLDER] consultation type, year"
+context: "[PLACEHOLDER] natal consultation, year"
 consent: false
 placeholder: true
 ---
