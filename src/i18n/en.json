@@ -30,6 +30,9 @@
   "theme": {
     "label": "Dark theme"
   },
+  "placeholder": {
+    "mark": "[PLACEHOLDER]"
+  },
   "pages": {
     "placeholder": "Placeholder. The content for this page is added in a later ticket.",
     "home": {
