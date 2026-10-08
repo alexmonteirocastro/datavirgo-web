@@ -16,3 +16,6 @@ dist/
 # Tool caches
 .eslintcache
 .pnpm-store/
+
+# Local editor/agent scratch (screenshots, transcript images)
+.nimbalyst/
