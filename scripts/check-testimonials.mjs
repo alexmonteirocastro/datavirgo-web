@@ -1,6 +1,12 @@
-// With features.testimonialsGuard off, placeholder or unconsented entries are allowed.
-// DAV-15 turns the flag on. From then, CI and the production build fail on those entries.
-// While the flag is off this script exits 0, including when the seed entries are deliberately bad.
+// features.testimonialsGuard stays off until the custom domain is about to go live.
+// While it is off, placeholder or unconsented entries are allowed.
+// Once it is on, those entries fail in two places only (ADR-0002):
+//   - a pull request into main (GITHUB_BASE_REF=main)
+//   - the Cloudflare Pages production build (CF_PAGES=1 and CF_PAGES_BRANCH=main)
+// A push to main in GitHub Actions is not a third trigger. That deploy is the Pages build.
+// Local builds and preview deployments still succeed.
+// pnpm build runs this script before astro build. CI also runs it as its own step.
+// Pages does not run the CI workflow, so the build-script call is the production backstop.
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import process from "node:process";
@@ -54,32 +60,39 @@ function frontmatter(text, path) {
   };
 }
 
-const problems = [];
+const readErrors = [];
+const blocked = [];
 for (const path of markdownFiles(root)) {
   const parsed = frontmatter(readFileSync(path, "utf8"), path);
   if (parsed.error) {
-    problems.push(parsed.error);
+    readErrors.push(parsed.error);
     continue;
   }
-  if (guardOn && (parsed.placeholder || !parsed.consent)) {
-    problems.push(`${path} has placeholder: true or consent: false`);
+  if (parsed.placeholder || !parsed.consent) {
+    blocked.push(`${path} has placeholder: true or consent: false`);
   }
 }
 
-if (!guardOn) {
-  process.stdout.write("guard off\n");
-  if (problems.length > 0) {
-    process.stderr.write(
-      `Testimonials files could not be read:\n- ${problems.join("\n- ")}\n`,
-    );
-    process.exit(1);
-  }
+if (readErrors.length > 0) {
+  process.stderr.write(
+    `Testimonials files could not be read:\n- ${readErrors.join("\n- ")}\n`,
+  );
+  process.exit(1);
+}
+
+const pullRequestIntoMain = process.env.GITHUB_BASE_REF === "main";
+const pagesProduction =
+  process.env.CF_PAGES === "1" && process.env.CF_PAGES_BRANCH === "main";
+const enforces = guardOn && (pullRequestIntoMain || pagesProduction);
+
+if (!enforces) {
+  process.stdout.write(guardOn ? "guard on, not enforced\n" : "guard off\n");
   process.exit(0);
 }
 
-if (problems.length > 0) {
+if (blocked.length > 0) {
   process.stderr.write(
-    `Testimonials guard failed:\n- ${problems.join("\n- ")}\n`,
+    `Testimonials guard failed:\n- ${blocked.join("\n- ")}\n`,
   );
   process.exit(1);
 }

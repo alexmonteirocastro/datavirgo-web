@@ -15,4 +15,4 @@ An enquiry, including any birth details you choose to include, is sent by email 
 
 ## Cookies and other scripts
 
-This site sets no cookies and loads no third-party scripts, so there is no cookie banner.
+This site sets no cookies, so there is no cookie banner. Every page of the public site loads one script: Cloudflare's cookieless Web Analytics beacon. It does not record query strings.

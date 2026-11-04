@@ -98,29 +98,36 @@
   "pages": {
     "placeholder": "Marcador. O conteúdo desta página é adicionado mais tarde.",
     "home": {
-      "title": "DataVirgo"
+      "title": "DataVirgo",
+      "description": "Astrologia, lida com cuidado e precisão."
     },
     "about": {
-      "title": "Sobre"
+      "title": "Sobre",
+      "description": "Experiência e abordagem."
     },
     "approach": {
       "title": "Abordagem"
     },
     "consultations": {
-      "title": "Consultas"
+      "title": "Consultas",
+      "description": "Uma conversa sobre o seu mapa."
     },
     "testimonials": {
-      "title": "Testemunhos"
+      "title": "Testemunhos",
+      "description": "De clientes, publicado com autorização."
     },
     "blog": {
-      "title": "Escrita"
+      "title": "Escrita",
+      "description": "Escrita."
     },
     "privacy": {
-      "title": "Privacidade"
+      "title": "Privacidade",
+      "description": "O que o sítio DataVirgo faz com dados pessoais."
     },
     "notFound": {
       "title": "Página não encontrada",
-      "body": "Esta página não existe."
+      "body": "Esta página não existe.",
+      "description": "Esta página não existe."
     }
   }
 }
