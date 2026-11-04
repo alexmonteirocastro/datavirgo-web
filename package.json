@@ -15,7 +15,8 @@
     "format:check": "prettier --check .",
     "prepare": "husky",
     "test:literals": "node scripts/test-no-raw-text.mjs",
-    "test:pt-build": "node scripts/check-pt-build.mjs"
+    "test:pt-build": "node scripts/check-pt-build.mjs",
+    "test:testimonials": "node scripts/check-testimonials.mjs"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",

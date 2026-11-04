@@ -1,0 +1,32 @@
+---
+// Marks placeholder copy so it can never pass as real (CLAUDE.md: no invented bio/testimonials).
+// The textual label renders in every build; the dashed outline is a dev-only affordance.
+// Presentational, zero client JS. Tokens only (ADR-0001).
+import { defaultLocale, t } from "../i18n";
+
+const locale = Astro.currentLocale ?? defaultLocale;
+const dev = import.meta.env.DEV;
+---
+
+<div class:list={["placeholder", { "placeholder--dev": dev }]}>
+  <span class="placeholder__label">{t("placeholder.mark", locale)}</span>
+  <slot />
+</div>
+
+<style>
+  .placeholder__label {
+    display: inline-block;
+    margin-block-end: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-2xs);
+    letter-spacing: var(--letter-spacing-eyebrow);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  /* Dev-only: an unmistakable dashed frame around unreal copy while editing. */
+  .placeholder--dev {
+    outline: var(--border-width) dashed var(--color-border-field);
+    outline-offset: var(--space-2);
+  }
+</style>

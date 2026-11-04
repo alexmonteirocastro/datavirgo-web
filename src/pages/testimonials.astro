@@ -1,5 +1,47 @@
 ---
-import StubPage from "../components/StubPage.astro";
+import Quote from "../components/Quote.astro";
+import { defaultLocale, t } from "../i18n";
+import Base from "../layouts/Base.astro";
+import { href } from "../lib/href";
+import { loadTestimonials } from "../lib/pages";
+
+const locale = Astro.currentLocale ?? defaultLocale;
+const quotes = await loadTestimonials(locale);
 ---
 
-<StubPage route="testimonials" title="pages.testimonials.title" />
+<Base title="pages.testimonials.title" route="testimonials">
+  <p class="eyebrow">{t("testimonials.eyebrow", locale)}</p>
+  <h1>{t("testimonials.headline", locale)}</h1>
+  <p>{t("testimonials.permission", locale)}</p>
+  <ul class="quotes">
+    {quotes.map((item) => (
+      <li>
+        <Quote
+          quote={item.data.quote}
+          name={item.data.name}
+          context={item.data.context}
+          marked={item.data.placeholder || !item.data.consent}
+        />
+      </li>
+    ))}
+  </ul>
+  <p class="band closing">
+    {t("testimonials.closing", locale)}
+    <a href={href("consultations", locale, "enquire")}>
+      {t("cta.enquire", locale)}
+    </a>
+  </p>
+</Base>
+
+<style>
+  .closing {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3) var(--space-6);
+    align-items: baseline;
+    max-width: none;
+    font-family: var(--font-serif);
+    font-size: var(--font-size-xl);
+    line-height: var(--line-height-heading);
+  }
+</style>

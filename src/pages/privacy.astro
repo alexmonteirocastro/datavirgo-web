@@ -1,5 +1,15 @@
 ---
-import StubPage from "../components/StubPage.astro";
+import { defaultLocale, t } from "../i18n";
+import Base from "../layouts/Base.astro";
+import { loadPage } from "../lib/pages";
+
+const locale = Astro.currentLocale ?? defaultLocale;
+const { Content } = await loadPage("privacy", locale);
 ---
 
-<StubPage route="privacy" title="pages.privacy.title" />
+<Base title="pages.privacy.title" route="privacy">
+  <h1>{t("pages.privacy.title", locale)}</h1>
+  <div class="prose">
+    <Content />
+  </div>
+</Base>

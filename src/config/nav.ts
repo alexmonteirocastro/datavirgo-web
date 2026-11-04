@@ -7,15 +7,23 @@ export interface NavItem {
   label: MessageKey;
   /** The item is left out of the build unless this feature is on. */
   requires?: FeatureKey;
+  /**
+   * When set, the link goes here instead of `route`.
+   * Approach stays a nav item and points at the section on About.
+   */
+  linkTo?: { route: RouteKey; hash: string };
 }
 
 export const navItems: readonly NavItem[] = [
   { route: "about", label: "nav.about" },
-  { route: "approach", label: "nav.approach" },
-  { route: "consultations", label: "nav.consultations" },
-  { route: "testimonials", label: "nav.testimonials" },
-  { route: "blog", label: "nav.blog" },
+  {
+    route: "approach",
+    label: "nav.approach",
+    linkTo: { route: "about", hash: "approach" },
+  },
   { route: "chart", label: "nav.chart", requires: "chartTool" },
+  { route: "blog", label: "nav.blog" },
+  { route: "consultations", label: "nav.consultations" },
 ];
 
 /** The items to render: a gated item is filtered out at build time while its flag is off. */

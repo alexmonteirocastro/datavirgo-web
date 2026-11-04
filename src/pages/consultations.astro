@@ -1,5 +1,49 @@
 ---
-import StubPage from "../components/StubPage.astro";
+import EnquiryPanel from "../components/EnquiryPanel.astro";
+import PlaceholderMark from "../components/PlaceholderMark.astro";
+import Quote from "../components/Quote.astro";
+import { defaultLocale, t } from "../i18n";
+import Base from "../layouts/Base.astro";
+import { href } from "../lib/href";
+import { loadPage, loadTestimonials } from "../lib/pages";
+
+const locale = Astro.currentLocale ?? defaultLocale;
+const { entry, Content } = await loadPage("consultations", locale);
+const quotes = (await loadTestimonials(locale)).slice(0, 3);
 ---
 
-<StubPage route="consultations" title="pages.consultations.title" />
+<Base title="pages.consultations.title" route="consultations">
+  <p class="eyebrow">{t("consultations.eyebrow", locale)}</p>
+  <h1>{t("consultations.headline", locale)}</h1>
+  <div class="prose">
+    {entry.data.placeholder ? (
+      <PlaceholderMark>
+        <Content />
+      </PlaceholderMark>
+    ) : (
+      <Content />
+    )}
+  </div>
+
+  <section class="band">
+    <h2>{t("consultations.fromClients", locale)}</h2>
+    <p>{t("consultations.permission", locale)}</p>
+    <ul class="quotes">
+      {quotes.map((item) => (
+        <li>
+          <Quote
+            quote={item.data.quote}
+            name={item.data.name}
+            context={item.data.context}
+            marked={item.data.placeholder || !item.data.consent}
+          />
+        </li>
+      ))}
+    </ul>
+    <p>
+      <a href={href("testimonials", locale)}>{t("quotes.more", locale)}</a>
+    </p>
+  </section>
+
+  <EnquiryPanel />
+</Base>

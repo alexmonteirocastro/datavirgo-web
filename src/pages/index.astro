@@ -1,14 +1,165 @@
 ---
-import Base from "../layouts/Base.astro";
+import { getEntry } from "astro:content";
 import ChartSection from "../components/ChartSection.astro";
+import Paragraphs from "../components/Paragraphs.astro";
+import PlaceholderMark from "../components/PlaceholderMark.astro";
+import Quote from "../components/Quote.astro";
 import { features } from "../config/features";
+import { substackUrl } from "../config/site";
 import { defaultLocale, t } from "../i18n";
+import Base from "../layouts/Base.astro";
+import { href } from "../lib/href";
+import { loadTestimonials, slots } from "../lib/pages";
 
 const locale = Astro.currentLocale ?? defaultLocale;
+const entry = await getEntry("pages", `${locale}/home`);
+if (!entry) {
+  throw new Error(`Missing pages entry "${locale}/home"`);
+}
+const [intro, consultations, writing] = slots(entry.body, 3, entry.id);
+const quotes = await loadTestimonials(locale);
+const lead = quotes[0];
+const cards = [0, 1, 2];
 ---
 
 <Base title="pages.home.title" route="home">
-  <h1>{t("pages.home.title", locale)}</h1>
-  <p>{t("pages.placeholder", locale)}</p>
+  <p class="eyebrow">{t("home.eyebrow", locale)}</p>
+  <h1 class="display">{t("home.headline", locale)}</h1>
+  {entry.data.placeholder ? (
+    <PlaceholderMark>
+      <Paragraphs text={intro} />
+    </PlaceholderMark>
+  ) : (
+    <Paragraphs text={intro} />
+  )}
+  <p class="band">
+    <a href={href("consultations", locale, "enquire")}>
+      {t("cta.enquire", locale)}
+    </a>
+  </p>
+
+  <div class="split band">
+    <section>
+      <h2>{t("home.consultationsHeading", locale)}</h2>
+      {entry.data.placeholder ? (
+        <PlaceholderMark>
+          <Paragraphs text={consultations} />
+        </PlaceholderMark>
+      ) : (
+        <Paragraphs text={consultations} />
+      )}
+      <p>
+        <a href={href("consultations", locale)}>
+          {t("home.consultationsLink", locale)}
+        </a>
+      </p>
+    </section>
+    <section>
+      <h2>{t("home.writingHeading", locale)}</h2>
+      {entry.data.placeholder ? (
+        <PlaceholderMark>
+          <Paragraphs text={writing} />
+        </PlaceholderMark>
+      ) : (
+        <Paragraphs text={writing} />
+      )}
+      <p>
+        <a href={href("blog", locale)}>{t("home.writingLink", locale)}</a>
+      </p>
+    </section>
+  </div>
+
+  <section class="band">
+    <h2>{t("home.latestWriting", locale)}</h2>
+    <ul class="cards">
+      {cards.map(() => (
+        <li class="card">
+          <PlaceholderMark>
+            <div class="card__cover">{t("home.cardCover", locale)}</div>
+            <p class="card__date">{t("home.cardDate", locale)}</p>
+            <h3>{t("home.cardTitle", locale)}</h3>
+            <p>{t("home.cardExcerpt", locale)}</p>
+          </PlaceholderMark>
+          <a href={substackUrl}>{t("home.readOnSubstack", locale)}</a>
+        </li>
+      ))}
+    </ul>
+    <p>
+      <a href={href("blog", locale)}>{t("home.allWriting", locale)}</a>
+    </p>
+  </section>
+
+  {lead && (
+    <section class="band">
+      <Quote
+        quote={lead.data.quote}
+        name={lead.data.name}
+        context={lead.data.context}
+        marked={lead.data.placeholder || !lead.data.consent}
+      />
+      <p>
+        <a href={href("testimonials", locale)}>{t("quotes.more", locale)}</a>
+      </p>
+    </section>
+  )}
+
   {features.chartTool && <ChartSection />}
 </Base>
+
+<style>
+  .split {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .cards {
+    display: grid;
+    gap: var(--space-5);
+    margin: var(--space-6) 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .card {
+    display: grid;
+    gap: var(--space-3);
+    align-content: start;
+    padding: var(--space-5);
+    border: var(--border-width) solid var(--color-rule);
+    background: var(--color-surface);
+  }
+
+  .card__cover {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 3 / 2;
+    background: var(--color-bg);
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-2xs);
+  }
+
+  .card__date {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-2xs);
+  }
+
+  .card h3 {
+    margin: 0;
+    font-size: var(--font-size-lg);
+  }
+
+  /* Same raw breakpoint as the header: media queries cannot read custom properties. */
+  @media (min-width: 56rem) {
+    .split {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-10);
+    }
+
+    .cards {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

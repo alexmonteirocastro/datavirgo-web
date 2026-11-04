@@ -25,6 +25,11 @@ const chartToolRoute = {
 export default defineConfig({
   output: "static",
   integrations: [chartToolRoute],
+  // Approach is a section of About. The nav links straight to the anchor;
+  // this redirect keeps the old path. It only applies once src/pages/approach.astro is gone.
+  redirects: {
+    "/approach": "/about#approach",
+  },
   i18n: {
     defaultLocale: "en",
     locales,

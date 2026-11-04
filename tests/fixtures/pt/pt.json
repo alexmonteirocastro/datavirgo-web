@@ -7,7 +7,8 @@
   "a11y": {
     "skipToContent": "Saltar para o conteúdo",
     "mainNav": "Navegação principal",
-    "menu": "Menu"
+    "menu": "Menu",
+    "onThisPage": "Nesta página"
   },
   "nav": {
     "home": "Início",
@@ -15,20 +16,84 @@
     "approach": "Abordagem",
     "consultations": "Consultas",
     "testimonials": "Testemunhos",
-    "blog": "Blogue",
-    "chart": "Mapa"
+    "blog": "Escrita",
+    "chart": "Mapa",
+    "enquire": "Pedir"
+  },
+  "cta": {
+    "enquire": "Pedir uma consulta"
   },
   "chart": {
     "title": "Mapa",
     "stub": "Marcador da ferramenta de mapas."
   },
   "footer": {
-    "substack": "Substack",
+    "substack": "Subscrever no Substack",
     "privacy": "Privacidade",
-    "source": "Código-fonte (AGPL)"
+    "source": "Código-fonte (AGPL)",
+    "email": "ola@[o-seu-dominio]"
   },
   "theme": {
     "label": "Tema escuro"
+  },
+  "placeholder": {
+    "mark": "[MARCADOR]"
+  },
+  "home": {
+    "eyebrow": "ASTROLOGIA · CONSULTAS",
+    "headline": "Astrologia, lida com cuidado e precisão.",
+    "consultationsHeading": "I. Consultas",
+    "consultationsLink": "Como funcionam as consultas",
+    "writingHeading": "III. Escrita",
+    "writingLink": "Ler o mais recente",
+    "latestWriting": "Escrita recente",
+    "allWriting": "Toda a escrita",
+    "readOnSubstack": "Ler no Substack",
+    "cardCover": "[Imagem de capa]",
+    "cardDate": "[Data]",
+    "cardTitle": "[Título, a partir do feed do Substack]",
+    "cardExcerpt": "[Primeiras linhas do texto, tal como o feed as traz.]"
+  },
+  "about": {
+    "eyebrow": "Sobre",
+    "headline": "Experiência e abordagem",
+    "portrait": "[Retrato]",
+    "glance": "Em resumo",
+    "sinceLabel": "Pratica desde",
+    "sinceValue": "[Ano]",
+    "traditionLabel": "Tradição",
+    "traditionValue": "[ex.: moderna, helenística]",
+    "techniquesLabel": "Técnicas",
+    "techniquesValue": "[ex.: natal, trânsitos]",
+    "languagesLabel": "Línguas",
+    "languagesValue": "[Línguas em que consulta]",
+    "basedLabel": "Sediado em",
+    "basedValue": "[Cidade] · sessões online",
+    "experience": "Experiência",
+    "training": "Formação e influências",
+    "approach": "Abordagem",
+    "expect": "O que esperar"
+  },
+  "consultations": {
+    "eyebrow": "Consultas",
+    "headline": "Uma conversa sobre o seu mapa.",
+    "fromClients": "De clientes",
+    "permission": "Publicado com a autorização de cada cliente.",
+    "enquireEyebrow": "Pedir",
+    "enquireTitle": "Pedir uma consulta",
+    "enquireBody": "A mensagem vai direta para a caixa de correio, por email. Nada fica guardado neste sítio.",
+    "formSlot": "O formulário de pedido ficará aqui.",
+    "enquireReply": "Costumo responder dentro de [número] dias.",
+    "enquireEmail": "Prefere email? Escreva para ola@[o-seu-dominio]."
+  },
+  "testimonials": {
+    "eyebrow": "Testemunhos",
+    "headline": "De clientes",
+    "permission": "Publicado com a autorização escrita de cada cliente.",
+    "closing": "Um mapa é um mapa. Uma consulta é a conversa."
+  },
+  "quotes": {
+    "more": "Mais de clientes"
   },
   "pages": {
     "placeholder": "Marcador. O conteúdo desta página é adicionado mais tarde.",
@@ -48,7 +113,7 @@
       "title": "Testemunhos"
     },
     "blog": {
-      "title": "Blogue"
+      "title": "Escrita"
     },
     "privacy": {
       "title": "Privacidade"

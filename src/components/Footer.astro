@@ -1,4 +1,5 @@
 ---
+import PlaceholderMark from "./PlaceholderMark.astro";
 import { sourceRepoUrl, substackUrl } from "../config/site";
 import { t } from "../i18n";
 import { href } from "../lib/href";
@@ -12,7 +13,27 @@ const { locale } = Astro.props;
 
 <footer class="site-footer">
   <div class="container site-footer__inner">
+    <a class="wordmark" href={href("home", locale)}>
+      <span class="wordmark__data">{t("site.wordmarkData", locale)}</span>
+      <span class="wordmark__virgo">{t("site.wordmarkVirgo", locale)}</span>
+    </a>
     <ul class="footer-links">
+      <li>
+        <a href={href("about", locale)}>{t("nav.about", locale)}</a>
+      </li>
+      <li>
+        <a href={href("about", locale, "approach")}>
+          {t("nav.approach", locale)}
+        </a>
+      </li>
+      <li>
+        <a href={href("consultations", locale)}>
+          {t("nav.consultations", locale)}
+        </a>
+      </li>
+      <li>
+        <a href={href("blog", locale)}>{t("nav.blog", locale)}</a>
+      </li>
       <li>
         <a href={substackUrl}>{t("footer.substack", locale)}</a>
       </li>
@@ -23,6 +44,9 @@ const { locale } = Astro.props;
         <a href={sourceRepoUrl}>{t("footer.source", locale)}</a>
       </li>
     </ul>
+    <PlaceholderMark>
+      <p class="footer-email">{t("footer.email", locale)}</p>
+    </PlaceholderMark>
   </div>
 </footer>
 
@@ -35,7 +59,24 @@ const { locale } = Astro.props;
   }
 
   .site-footer__inner {
+    display: grid;
+    gap: var(--space-6);
     padding-block: var(--space-7);
+  }
+
+  .wordmark {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+  }
+
+  .wordmark__data {
+    color: var(--color-link);
+  }
+
+  .wordmark__virgo {
+    color: var(--color-text);
   }
 
   .footer-links {
@@ -52,5 +93,16 @@ const { locale } = Astro.props;
     align-items: center;
     min-height: var(--touch-target-min);
     color: inherit;
+    text-decoration: none;
+  }
+
+  .footer-links a:hover {
+    color: var(--color-text);
+  }
+
+  .footer-email {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: var(--font-size-2xs);
   }
 </style>

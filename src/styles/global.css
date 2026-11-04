@@ -56,3 +56,82 @@ p {
 main > .container {
   padding-block: var(--space-9);
 }
+
+.eyebrow {
+  margin: 0 0 var(--space-3);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: var(--letter-spacing-eyebrow);
+  line-height: var(--line-height-body);
+  text-transform: uppercase;
+}
+
+h1.display {
+  font-size: var(--font-size-display);
+  letter-spacing: var(--letter-spacing-display);
+  line-height: var(--line-height-tight);
+}
+
+.band {
+  margin-block-start: var(--section-gap);
+}
+
+.prose h2 {
+  margin-block: var(--space-8) var(--space-3);
+}
+
+.prose h3 {
+  margin-block: var(--space-4) var(--space-2);
+  font-size: var(--font-size-lg);
+}
+
+.prose .steps {
+  display: grid;
+  gap: var(--space-6);
+  margin-block: var(--space-7);
+  padding: 0;
+}
+
+.prose .step__index {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-2xs);
+  letter-spacing: var(--letter-spacing-eyebrow);
+}
+
+.prose .readings {
+  display: grid;
+  gap: var(--space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.quotes {
+  display: grid;
+  gap: var(--space-7);
+  margin: var(--space-7) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Same raw breakpoint as the header: media queries cannot read custom properties. */
+@media (min-width: 56rem) {
+  .prose .steps {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .prose .readings li {
+    display: grid;
+    grid-template-columns: 1fr 2fr auto;
+    gap: var(--space-4);
+    align-items: baseline;
+  }
+
+  .quotes {
+    grid-template-columns: 1fr 1fr;
+  }
+}

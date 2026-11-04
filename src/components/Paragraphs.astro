@@ -1,0 +1,15 @@
+---
+interface Props {
+  text: string;
+}
+
+const { text } = Astro.props;
+const paragraphs = text
+  .split(/\n\n+/)
+  .map((paragraph) => paragraph.trim())
+  .filter((paragraph) => paragraph.length > 0);
+---
+
+{paragraphs.map((paragraph) => (
+  <p>{paragraph}</p>
+))}
