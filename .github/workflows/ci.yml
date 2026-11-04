@@ -81,6 +81,8 @@ jobs:
       - run: pnpm build
       - name: No chart tool in the build while the flag is off
         run: node scripts/check-no-chart.mjs
+      # Same script as the start of `pnpm build`. This step is the labelled CI result.
+      # Pages does not run this workflow, so the build-script call is what enforces production.
       - name: Testimonials guard is inert while the flag is off
         run: node scripts/check-testimonials.mjs
       - name: A second locale builds without a refactor

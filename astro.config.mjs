@@ -1,3 +1,4 @@
+import sitemap from "@astrojs/sitemap";
 import { defineConfig } from "astro/config";
 import process from "node:process";
 import { features } from "./src/config/features.ts";
@@ -22,9 +23,15 @@ const chartToolRoute = {
   },
 };
 
+// SITE is the public origin. The default is the Pages hostname, which stays noindex.
+// Attaching the custom domain later is a SITE change. `astro build --site` still wins,
+// which is how the Portuguese fixture builds against https://example.test.
+const site = process.env.SITE ?? "https://datavirgo.pages.dev";
+
 export default defineConfig({
+  site,
   output: "static",
-  integrations: [chartToolRoute],
+  integrations: [chartToolRoute, sitemap()],
   // Approach is a section of About. The nav links straight to the anchor;
   // this redirect keeps the old path. It only applies once src/pages/approach.astro is gone.
   redirects: {

@@ -5,6 +5,7 @@ import "../styles/global.css";
 import ThemeScript from "../components/ThemeScript.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+import { isIndexableHost } from "../config/site";
 import { defaultLocale, t, type MessageKey } from "../i18n";
 import { routeLocales, type RouteKey } from "../i18n/routes";
 import { href } from "../lib/href";
@@ -20,9 +21,36 @@ const { title, route } = Astro.props;
 const locale = Astro.currentLocale ?? defaultLocale;
 const pageTitle = t(title, locale);
 
-// hreflang needs absolute URLs, so alternates are emitted only once `site` is set in
-// astro.config.mjs (DAV-15). A locale without a slug for this route has no page to point at.
+function descriptionKey(page: RouteKey | undefined): MessageKey {
+  switch (page) {
+    case "home":
+      return "pages.home.description";
+    case "about":
+    case "approach":
+      return "pages.about.description";
+    case "consultations":
+      return "pages.consultations.description";
+    case "testimonials":
+      return "pages.testimonials.description";
+    case "blog":
+      return "pages.blog.description";
+    case "privacy":
+      return "pages.privacy.description";
+    case "chart":
+      return "chart.stub";
+    case undefined:
+      return "pages.notFound.description";
+  }
+}
+
+const description = t(descriptionKey(route), locale);
+
+// hreflang and canonical need absolute URLs, so they are emitted only once `site` is set.
+// A locale without a slug for this route has no page to point at.
 const site = Astro.site;
+const canonical = site ? new URL(Astro.url.pathname, site).href : undefined;
+const indexable = site ? isIndexableHost(site.hostname) : false;
+const beaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
 const alternates =
   site && route
     ? routeLocales(route).map((alt) => ({
@@ -42,6 +70,14 @@ const documentTitle =
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <ThemeScript />
     <title>{documentTitle}</title>
+    <meta name="description" content={description} />
+    {!indexable && <meta name="robots" content="noindex, nofollow" />}
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:title" content={documentTitle} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={t("site.name", locale)} />
     {alternates.map((alt) => (
       <link rel="alternate" hreflang={alt.locale} href={alt.url} />
     ))}
@@ -60,6 +96,14 @@ const documentTitle =
       </div>
     </main>
     <Footer locale={locale} />
+    {beaconToken && (
+      <script
+        is:inline
+        type="module"
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={JSON.stringify({ token: beaconToken })}
+      />
+    )}
   </body>
 </html>
 

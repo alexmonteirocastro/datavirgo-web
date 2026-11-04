@@ -98,29 +98,36 @@
   "pages": {
     "placeholder": "Placeholder. The content for this page is added in a later ticket.",
     "home": {
-      "title": "DataVirgo"
+      "title": "DataVirgo",
+      "description": "Astrology, read with care and precision."
     },
     "about": {
-      "title": "About"
+      "title": "About",
+      "description": "Experience and approach."
     },
     "approach": {
       "title": "Approach"
     },
     "consultations": {
-      "title": "Consultations"
+      "title": "Consultations",
+      "description": "A conversation about your chart."
     },
     "testimonials": {
-      "title": "Testimonials"
+      "title": "Testimonials",
+      "description": "From clients, published with permission."
     },
     "blog": {
-      "title": "Writing"
+      "title": "Writing",
+      "description": "Writing."
     },
     "privacy": {
-      "title": "Privacy"
+      "title": "Privacy",
+      "description": "What the DataVirgo website does with personal data."
     },
     "notFound": {
       "title": "Page not found",
-      "body": "This page does not exist."
+      "body": "This page does not exist.",
+      "description": "This page does not exist."
     }
   }
 }
