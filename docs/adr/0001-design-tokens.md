@@ -95,7 +95,7 @@ The site uses the **DataVirgo vector glyph set**, not a symbol font: 29 SVGs in 
 
 ### Brand marks
 
-The compact mark (Virgo glyph in a ring), its 16px variant and the flat redraw of the full logo are in [`src/assets/brand/`](../../src/assets/brand/). They use the colour tokens when inlined. Each token reference carries a hex fallback, the Observatory (dark) value, for when a file is loaded as an image (for example the favicon). This is the one place hex values appear outside `tokens.css`; the fallback does not follow the theme. The wordmark is live text ("Data" in `--color-link`, "Virgo" in `--color-text`, `--font-serif` at 500), not an image. The marks are **drafts** until the logo redraw is signed off; swapping the files does not change any token.
+The compact mark (Virgo glyph in a ring), its 16px variant and the flat redraw of the full logo are in [`src/assets/brand/`](../../src/assets/brand/). They use the colour tokens when inlined. Each token reference carries a hex fallback, the Observatory (dark) value, for when a file is loaded as an image (for example the favicon). This is the one place hex values appear outside `tokens.css`; the fallback does not follow the theme. The wordmark is live text ("Data" in `--color-link`, "Virgo" in `--color-text`, `--font-serif` at 500), not an image. Swapping the files does not change any token.
 
 ## Consequences
 
