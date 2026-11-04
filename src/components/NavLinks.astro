@@ -9,9 +9,11 @@ interface Props {
   route?: RouteKey;
   /** inline: a row in the header. stacked: a column in the mobile menu. */
   variant: "inline" | "stacked";
+  /** Header-only link to the consultations enquire anchor. Not a route. */
+  enquireHref: string;
 }
 
-const { locale, route, variant } = Astro.props;
+const { locale, route, variant, enquireHref } = Astro.props;
 const items = visibleNavItems();
 ---
 
@@ -20,13 +22,22 @@ const items = visibleNavItems();
     <li>
       <a
         class="nav-link"
-        href={href(item.route, locale)}
+        href={
+          item.linkTo
+            ? href(item.linkTo.route, locale, item.linkTo.hash)
+            : href(item.route, locale)
+        }
         aria-current={item.route === route ? "page" : undefined}
       >
         {t(item.label, locale)}
       </a>
     </li>
   ))}
+  <li>
+    <a class="nav-link" href={enquireHref}>
+      {t("nav.enquire", locale)}
+    </a>
+  </li>
 </ul>
 
 <style>

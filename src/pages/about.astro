@@ -1,5 +1,171 @@
 ---
-import StubPage from "../components/StubPage.astro";
+import PlaceholderMark from "../components/PlaceholderMark.astro";
+import { defaultLocale, t } from "../i18n";
+import Base from "../layouts/Base.astro";
+import { href } from "../lib/href";
+import { loadPage } from "../lib/pages";
+
+const locale = Astro.currentLocale ?? defaultLocale;
+const { entry, Content } = await loadPage("about", locale);
 ---
 
-<StubPage route="about" title="pages.about.title" />
+<Base title="pages.about.title" route="about">
+  <div class="about-layout">
+    <aside class="about-aside">
+      <div class="portrait">
+        <PlaceholderMark>
+          <p>{t("about.portrait", locale)}</p>
+        </PlaceholderMark>
+      </div>
+
+      <section>
+        <h2 class="eyebrow">{t("about.glance", locale)}</h2>
+        <PlaceholderMark>
+          <dl class="glance">
+            <div>
+              <dt>{t("about.sinceLabel", locale)}</dt>
+              <dd>{t("about.sinceValue", locale)}</dd>
+            </div>
+            <div>
+              <dt>{t("about.traditionLabel", locale)}</dt>
+              <dd>{t("about.traditionValue", locale)}</dd>
+            </div>
+            <div>
+              <dt>{t("about.techniquesLabel", locale)}</dt>
+              <dd>{t("about.techniquesValue", locale)}</dd>
+            </div>
+            <div>
+              <dt>{t("about.languagesLabel", locale)}</dt>
+              <dd>{t("about.languagesValue", locale)}</dd>
+            </div>
+            <div>
+              <dt>{t("about.basedLabel", locale)}</dt>
+              <dd>{t("about.basedValue", locale)}</dd>
+            </div>
+          </dl>
+        </PlaceholderMark>
+      </section>
+
+      <nav aria-labelledby="on-this-page">
+        <h2 class="eyebrow" id="on-this-page">
+          {t("a11y.onThisPage", locale)}
+        </h2>
+        <ul class="toc">
+          <li>
+            <a href="#experience">{t("about.experience", locale)}</a>
+          </li>
+          <li>
+            <a href="#training">{t("about.training", locale)}</a>
+          </li>
+          <li>
+            <a href="#approach">{t("about.approach", locale)}</a>
+          </li>
+          <li>
+            <a href="#expect">{t("about.expect", locale)}</a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <div class="about-prose">
+      <p class="eyebrow">{t("about.eyebrow", locale)}</p>
+      <h1>{t("about.headline", locale)}</h1>
+      <div class="prose">
+        {entry.data.placeholder ? (
+          <PlaceholderMark>
+            <Content />
+          </PlaceholderMark>
+        ) : (
+          <Content />
+        )}
+      </div>
+      <p class="band">
+        <a href={href("consultations", locale, "enquire")}>
+          {t("cta.enquire", locale)}
+        </a>
+      </p>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .about-layout {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .portrait {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1;
+    margin-block-end: var(--space-7);
+    border: var(--border-width) solid var(--color-rule);
+    background: var(--color-surface);
+    color: var(--color-text-muted);
+  }
+
+  .glance {
+    display: grid;
+    gap: var(--space-4);
+    margin: 0;
+  }
+
+  .glance div {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .glance dt {
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-2xs);
+    letter-spacing: var(--letter-spacing-eyebrow);
+    text-transform: uppercase;
+  }
+
+  .glance dd {
+    margin: 0;
+  }
+
+  .about-aside {
+    display: grid;
+    gap: var(--space-7);
+    align-content: start;
+  }
+
+  .toc {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .toc a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .toc a:hover {
+    color: var(--color-link);
+  }
+
+  /* Same raw breakpoint as the header: media queries cannot read custom properties. */
+  @media (min-width: 56rem) {
+    .about-layout {
+      grid-template-columns: 1.5fr 1fr;
+      gap: var(--space-10);
+      align-items: start;
+    }
+
+    .about-prose {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .about-aside {
+      grid-column: 2;
+      grid-row: 1;
+    }
+  }
+</style>

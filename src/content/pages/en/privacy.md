@@ -3,26 +3,16 @@ title: "Privacy"
 placeholder: false
 ---
 
-This page explains what the DataVirgo website does with your personal data.
+This page explains what the DataVirgo website does with personal data.
 
-## The contact form
+## What this site stores
 
-When you send an enquiry through the contact form, your message is delivered to
-Alexandre by email through Cloudflare Email Routing. Nothing you submit is stored
-in a database.
+The site stores nothing you send it. There is no database.
 
-Any birth details you choose to include are optional. They are sent by email with
-the rest of your message and are never logged or saved by the site.
+## Enquiries
 
-The contact page loads Cloudflare Turnstile, a privacy-preserving check that
-confirms the form is submitted by a person rather than a bot.
+An enquiry, including any birth details you choose to include, is sent by email and is not stored on this site. Birth details are optional.
 
-## Analytics
+## Cookies and other scripts
 
-The site uses Cloudflare Web Analytics, a cookieless measurement tool. It sets no
-cookies, so there is no cookie banner, and it does not track you across other
-sites.
-
-## Third parties
-
-No other trackers or third-party scripts run on the site.
+This site sets no cookies and loads no third-party scripts, so there is no cookie banner.

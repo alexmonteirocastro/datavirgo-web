@@ -13,6 +13,7 @@ interface Props {
 }
 
 const { locale, route } = Astro.props;
+const enquireHref = href("consultations", locale, "enquire");
 ---
 
 <header class="site-header">
@@ -29,7 +30,12 @@ const { locale, route } = Astro.props;
 
     <!-- From the breakpoint up the nav is inline. Below it, the menu below replaces it. -->
     <nav class="nav-inline" aria-label={t("a11y.mainNav", locale)}>
-      <NavLinks locale={locale} route={route} variant="inline" />
+      <NavLinks
+        locale={locale}
+        route={route}
+        variant="inline"
+        enquireHref={enquireHref}
+      />
     </nav>
 
     <div class="site-header__actions">
@@ -53,7 +59,12 @@ const { locale, route } = Astro.props;
         </summary>
         <div class="menu__panel">
           <nav class="container" aria-label={t("a11y.mainNav", locale)}>
-            <NavLinks locale={locale} route={route} variant="stacked" />
+            <NavLinks
+              locale={locale}
+              route={route}
+              variant="stacked"
+              enquireHref={enquireHref}
+            />
           </nav>
         </div>
       </details>

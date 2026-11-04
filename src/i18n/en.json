@@ -7,7 +7,8 @@
   "a11y": {
     "skipToContent": "Skip to content",
     "mainNav": "Main navigation",
-    "menu": "Menu"
+    "menu": "Menu",
+    "onThisPage": "On this page"
   },
   "nav": {
     "home": "Home",
@@ -15,23 +16,84 @@
     "approach": "Approach",
     "consultations": "Consultations",
     "testimonials": "Testimonials",
-    "blog": "Blog",
-    "chart": "Chart"
+    "blog": "Writing",
+    "chart": "Chart",
+    "enquire": "Enquire"
+  },
+  "cta": {
+    "enquire": "Enquire about a consultation"
   },
   "chart": {
     "title": "Chart",
     "stub": "Placeholder for the chart tool."
   },
   "footer": {
-    "substack": "Substack",
+    "substack": "Subscribe on Substack",
     "privacy": "Privacy",
-    "source": "Source code (AGPL)"
+    "source": "Source code (AGPL)",
+    "email": "hello@[your-domain]"
   },
   "theme": {
     "label": "Dark theme"
   },
   "placeholder": {
     "mark": "[PLACEHOLDER]"
+  },
+  "home": {
+    "eyebrow": "ASTROLOGY · CONSULTATIONS",
+    "headline": "Astrology, read with care and precision.",
+    "consultationsHeading": "I. Consultations",
+    "consultationsLink": "How consultations work",
+    "writingHeading": "III. Writing",
+    "writingLink": "Read the latest",
+    "latestWriting": "Latest writing",
+    "allWriting": "All writing",
+    "readOnSubstack": "Read on Substack",
+    "cardCover": "[Cover image]",
+    "cardDate": "[Date]",
+    "cardTitle": "[Post title, from the Substack feed]",
+    "cardExcerpt": "[First lines of the post, as the feed provides them.]"
+  },
+  "about": {
+    "eyebrow": "About",
+    "headline": "Experience and approach",
+    "portrait": "[Portrait photo]",
+    "glance": "At a glance",
+    "sinceLabel": "Practising since",
+    "sinceValue": "[Year]",
+    "traditionLabel": "Tradition",
+    "traditionValue": "[e.g. modern, Hellenistic]",
+    "techniquesLabel": "Techniques",
+    "techniquesValue": "[e.g. natal, transits]",
+    "languagesLabel": "Languages",
+    "languagesValue": "[Languages you consult in]",
+    "basedLabel": "Based in",
+    "basedValue": "[City] · sessions online",
+    "experience": "Experience",
+    "training": "Training and influences",
+    "approach": "Approach",
+    "expect": "What to expect"
+  },
+  "consultations": {
+    "eyebrow": "Consultations",
+    "headline": "A conversation about your chart.",
+    "fromClients": "From clients",
+    "permission": "Published with each client's permission.",
+    "enquireEyebrow": "Enquire",
+    "enquireTitle": "Ask about a consultation",
+    "enquireBody": "Your message goes straight to my inbox by email. Nothing is stored on this site.",
+    "formSlot": "The enquiry form will go here.",
+    "enquireReply": "I usually reply within [number] days.",
+    "enquireEmail": "Prefer email? Write to hello@[your-domain]."
+  },
+  "testimonials": {
+    "eyebrow": "Testimonials",
+    "headline": "From clients",
+    "permission": "Published with each client's written permission.",
+    "closing": "A chart is a map. A consultation is the conversation."
+  },
+  "quotes": {
+    "more": "More from clients"
   },
   "pages": {
     "placeholder": "Placeholder. The content for this page is added in a later ticket.",
@@ -51,7 +113,7 @@
       "title": "Testimonials"
     },
     "blog": {
-      "title": "Blog"
+      "title": "Writing"
     },
     "privacy": {
       "title": "Privacy"

@@ -1,0 +1,26 @@
+---
+import PlaceholderMark from "./PlaceholderMark.astro";
+import { defaultLocale, t } from "../i18n";
+
+const locale = Astro.currentLocale ?? defaultLocale;
+---
+
+<section class="enquire band" id="enquire">
+  <p class="eyebrow">{t("consultations.enquireEyebrow", locale)}</p>
+  <h2>{t("consultations.enquireTitle", locale)}</h2>
+  <p>{t("consultations.enquireBody", locale)}</p>
+  <PlaceholderMark>
+    <p>{t("consultations.formSlot", locale)}</p>
+    <p>{t("consultations.enquireReply", locale)}</p>
+    <p>{t("consultations.enquireEmail", locale)}</p>
+  </PlaceholderMark>
+</section>
+
+<style>
+  .enquire {
+    max-width: var(--measure);
+    padding: var(--space-6);
+    border: var(--border-width) solid var(--color-rule);
+    background: var(--color-surface);
+  }
+</style>
