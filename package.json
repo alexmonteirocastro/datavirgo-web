@@ -19,22 +19,22 @@
     "test:testimonials": "node scripts/check-testimonials.mjs"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.10",
+    "@astrojs/check": "^0.9.12",
     "@eslint/js": "^10.0.1",
-    "@typescript-eslint/parser": "^8.71.0",
+    "@typescript-eslint/parser": "^8.72.1",
     "astro-eslint-parser": "^3.2.0",
-    "eslint": "^10.11.0",
+    "eslint": "^10.14.0",
     "husky": "^9.1.7",
     "lint-staged": "^17.6.0",
-    "prettier": "^3.6.2",
-    "prettier-plugin-astro": "^1.1.0",
-    "typescript": "^6.0.3"
+    "prettier": "^3.9.10",
+    "prettier-plugin-astro": "^1.1.2",
+    "typescript": "^7.0.2"
   },
   "lint-staged": {
     "*.{js,mjs,cjs,md,mdc,json,yml,yaml}": "prettier --write",
     "*.{js,mjs,cjs}": "eslint --fix"
   },
   "dependencies": {
-    "astro": "^7.3.5"
+    "astro": "^7.4.5"
   }
 }
